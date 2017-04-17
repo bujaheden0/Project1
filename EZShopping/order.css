@@ -1,0 +1,54 @@
+
+.header{
+		width:auto;
+		height: 80px;
+		background:#2F4F4F;
+	}
+	.header h1{
+		margin:auto;
+		line-height: 80px;
+		float: left;
+	}
+
+	.header ul{
+		float:right;
+	}
+
+	.header li{
+		float: left;
+		list-style: none;
+		height:80px;
+		line-height: 80px;
+		padding:0 20px;
+		margin-left:2px;
+		color: white;
+		font-size: 15px;
+	}
+
+	.header a{
+		color: white;
+	}
+	
+	.container{
+		margin:auto;
+		width:960px;
+		height:80px;
+		
+	}
+	#content{
+		background:#B0C4DE;
+		margin:auto;
+		width:960px;
+		height: auto;
+		padding-top: 5px;
+		margin-top: 10px;
+		border-radius: 0px 0px 10px 10px;
+	}
+
+	.button{
+		margin:auto;
+		text-align: center;
+		padding-bottom: 15px;
+	}
+
+	
