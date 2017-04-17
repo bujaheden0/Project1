@@ -194,7 +194,7 @@ if($_POST) {
 			exit;
 		}
 		
-		if($_POST['save_account']) {
+		if($_POST) {
 			$expire = time() + 30*24*60*60;
 			setcookie("email", "$email");
 			setcookie("pswd", "$pswd");
@@ -213,7 +213,11 @@ mysqli_close($link);
 <?php 
 	 if(!isset($_SESSION['user'])) {  
 ?>
-    <?php echo $err; ?>
+
+    <?php 
+    if($_POST){
+    echo $err;
+    } ?>
     <div class="login-head">
    	<fieldset><h3><i class="fa fa-user" aria-hidden="true"></i>  สมาชิกเข้าสู่ระบบ</h3></div>
 	<form id="login" method="post">
@@ -308,7 +312,7 @@ while($pro = mysqli_fetch_array($result)) {
     </div>
     <div class="div-detail">
     <?php
-    echo "<button class=\"more-detail btn btn-default\" data-id=\"$id\">BUY</button>";
+    echo "<button class=\"more-detail btn btn-default\" data-id=\"$id\" >BUY</button>";
     ?>
     </div>
 </section> 

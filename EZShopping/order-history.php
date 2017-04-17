@@ -37,6 +37,9 @@ ob_start();
 		background: #ffc;
 		border: solid 1px gray;
 	}
+	input.receive {
+		width:100px;
+	}
 	h2.warning {
 		text-align: left !important;
 	}
@@ -90,7 +93,7 @@ ob_start();
 	}
 	td {
 		text-align: center;
-		vertical-align: top;
+		vertical-align: middle;
 		padding: 3px 0px 3px 3px;
 		border-right: solid 1px white;
 	}
@@ -325,7 +328,7 @@ if(isset($_SESSION['user'])){
   						<div><img src="<?php echo $img_pay; ?>"> การชำระเงิน  - 
                          		<img src="<?php echo $img_delivery; ?>"> การจัดส่งสินค้า</div>
   					</caption>
-				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th></tr>
+				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th><th>แจ้งรับสินค้า</th></tr>
 				<?php
 					$grand_total = 0;
 					while($order = mysqli_fetch_array($result)) {
@@ -337,12 +340,13 @@ if(isset($_SESSION['user'])){
     				<td><?php echo $order['quantity']; ?></td>
     				<td><?php echo $order['price']; ?></td>
    					<td><?php echo number_format($sub_total); ?></td>
+   					<td><input class="receive btn btn-primary" type="submit" name="recieve" value="ได้รับแล้ว"></td>
 				</tr>
 				<?php
 					$grand_total += $sub_total;
 				}
 				?>
-				<tr><td colspan="4">รวมทั้งหมด</td><td><?php echo number_format($grand_total); ?></td></tr>
+				<tr><td colspan="4">รวมทั้งหมด</td><td><?php echo number_format($grand_total); ?></td><td><input class="receive btn btn-primary" type="submit" name="recieve" value="ได้รับทั้งหมด"></td></tr>
 			</table>
 <?php
 		}  //end while

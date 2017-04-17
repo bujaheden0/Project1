@@ -1,4 +1,5 @@
 <?php
+
 sleep(1);
 
 include "dblink.php";
@@ -12,6 +13,7 @@ $sql = "SELECT products.*, categories.cat_name
 $result = mysqli_query($link, $sql);
 $pro = mysqli_fetch_array($result);
 $out_of_stock = ($pro['quantity']==0)?true:false;
+
 ?>
 <div id="dialog-content">
  	<span id="dialog-pro-name" data-id="<?php echo $id; ?>"><?php echo $pro['pro_name']; ?></span>
