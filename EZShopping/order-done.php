@@ -130,7 +130,7 @@ if(empty($cust_id)) {
 	$cust_id = mysqli_insert_id($link);
 }
 //สร้างรายการสั่งซื้อของลูกค้าคนนี้
-$sql = "INSERT INTO orders (cust_id,order_date,paid,delivery) VALUES('$cust_id', NOW(), 'no', 'no')";
+$sql = "INSERT INTO orders (cust_id,order_date,paid,delivery,recieve) VALUES('$cust_id', NOW(), 'no', 'no','no')";
 $r = mysqli_query($link, $sql);
 $order_id = mysqli_insert_id($link);
 
@@ -143,7 +143,7 @@ while($cart = mysqli_fetch_array($r)) {
 	$pro_id = $cart['pro_id'];
 	$quan = $cart['quantity'];
 	$attr = $cart['attribute'];
-	$sql = "INSERT INTO order_details (order_id,pro_id,attribute,quantity) VALUES('$order_id', '$pro_id', '$attr', '$quan')";
+	$sql = "INSERT INTO order_details (order_id,pro_id,attribute,quantity,recieve) VALUES('$order_id', '$pro_id', '$attr', '$quan','no')";
 	mysqli_query($link, $sql);
 }
 //หลังจากคัดลอกข้อมูลของลูกค้ารายนั้นจากตาราง cart ไปจัดเก็บแล้ว ก็ลบข้อมูลในตาราง cart ทิ้ง

@@ -10,8 +10,6 @@ ob_start();
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<style>
-	@import "global-order.css";
-	
 	form {
 		margin: 20px auto;
 		width: 70%;
@@ -154,14 +152,47 @@ ob_start();
 		background: #A9A9A9;
 		padding: 3px;
 	}
+	td img {
+		height: 16px;
+		vertical-align: top;
+	}
 </style>
 <script src="js/jquery-2.1.1.min.js"> </script>
+<script src="js/jquery.blockUI.js"> </script>
 <script>
 $(function() {
 	$('button#index').click(function() {
 		location.href = "main.php";
 	});
+	$('button.update').click(function() {
+		ajaxSend($(this), 'update');
+	});
 });
+
+
+function ajaxSend(a, action) {
+	if(!confirm('ยืนยันการกระทำนี้')) {
+		return;
+	}
+	var proid = a.attr('data-id');
+	var orderID = a.attr('data-order'); 
+	var d = {'action':action, 'pro_id':proid, 'order_id':orderID};
+	$.ajax({
+		url: 'order-action.php',
+		data: d,
+		dataType: 'html',
+		type: 'post',
+		beforeSend: function() {
+			$.blockUI({message:'<h3>กำลังส่งข้อมูล...</h3>'});
+		},
+		success: function(result) {
+			location.reload();
+		},
+		complete: function() {
+			$.unblockUI();
+		}
+	})	;
+}
 </script>
 </head>
 <body>
@@ -328,11 +359,22 @@ if(isset($_SESSION['user'])){
   						<div><img src="<?php echo $img_pay; ?>"> การชำระเงิน  - 
                          		<img src="<?php echo $img_delivery; ?>"> การจัดส่งสินค้า</div>
   					</caption>
-				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th><th>แจ้งรับสินค้า</th></tr>
+				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th>
+				
+				<th>แจ้งรับสินค้า</th>
+				
+				</tr>
 				<?php
 					$grand_total = 0;
 					while($order = mysqli_fetch_array($result)) {
 						$sub_total = $order['quantity'] * $order['price'];
+						$pro_id = $order['pro_id'];
+						$class = 'disable';
+						$img_pay = "images/no.png";
+						if($order['recieve'] == 'yes'){
+							$class = 'disable';
+							$img_pay = "images/yes.png";
+						}
 				?>
 				<tr>
     				<td><?php echo $order['pro_name']; ?></td>
@@ -340,13 +382,24 @@ if(isset($_SESSION['user'])){
     				<td><?php echo $order['quantity']; ?></td>
     				<td><?php echo $order['price']; ?></td>
    					<td><?php echo number_format($sub_total); ?></td>
-   					<td><input class="receive btn btn-primary" type="submit" name="recieve" value="ได้รับแล้ว"></td>
+   					<td>
+   					<?php
+   					if($data['paid'] == "yes" && $data['delivery'] == "yes"){
+   						
+   					?>
+   					<img src="<?php echo $img_pay; ?>">
+   					<button class="update btn btn-primary" data-id="<?php echo $order['pro_id']; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
+   					<?php
+   					
+   				}
+   					?>
 				</tr>
 				<?php
 					$grand_total += $sub_total;
 				}
 				?>
-				<tr><td colspan="4">รวมทั้งหมด</td><td><?php echo number_format($grand_total); ?></td><td><input class="receive btn btn-primary" type="submit" name="recieve" value="ได้รับทั้งหมด"></td></tr>
+
+				<tr><td colspan="4">รวมทั้งหมด</td><td><?php echo number_format($grand_total); ?></td><td></td></tr>
 			</table>
 <?php
 		}  //end while
