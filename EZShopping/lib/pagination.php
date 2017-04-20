@@ -1,3 +1,4 @@
+
 <?php
 $_previous_text = "หน้าที่แล้ว";
 $_next_text = "หน้าถัดไป";

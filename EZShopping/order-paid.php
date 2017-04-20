@@ -1,16 +1,4 @@
-<?php
-session_start();
-?>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Online Store</title>
-<link rel="stylesheet" type="text/css" href="Main.css">
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<link href="js/jquery-ui.min.css" rel="stylesheet">
+<?php include "include/header.php" ?>
 <style>
 	
 	#head {
@@ -111,9 +99,6 @@ session_start();
 		float: right;
 	}
 </style>
-<link href="js/jquery-ui.min.css" rel="stylesheet">
-<script src="js/jquery-2.1.1.min.js"> </script>
-<script src="js/jquery-ui.min.js"> </script>
 <script>
 $(function() {
 	$('[name=date]').datepicker({dateFormat: 'yy/mm/dd'});
@@ -132,49 +117,6 @@ $(function() {
 	
 });
 </script>
-</head>
-<body>
-<div class="header">
-	<div class="top-bar">
-		<div class="top-menu-bar">
-			<ul class="top-menu">
-				<li style="background:#708090;"><a href=""><i class="fa fa-handshake-o" aria-hidden="true"></i> ฝากขายสินค้า</a></li>
-				<li><a href="">Administrator</a></li>
-			</ul>
-		</div><!--top-menu-bar-->
-	</div><!--top-bar-->
-		<div class="middle-bar">
-		<div class="middle-menu-bar">
-			<div class="brand">
-			<a href="#">EZShopping.com</a>
-			</div>
-			<div class="search">
-			<form class="navbar-form">
-        
-          <input type="text" class="form-control" style="width: 320px" placeholder="Search">
-        <span><button class="btn">Search</button></span>
-      </form>
-			</div>
-			<div class="cart">
-
-			<a href="" id="order"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-			<span id="cart-count"><B>0</B></span>
-			<button id="order">Cart</button>
-			</div>
-		</div><!--middle-menu-bar-->
-	</div><!--middle-bar-->
-	<div class="bottom-bar">
-	<div class="bottom-menu">
-			<ul>
-  			<li><a href="order-history.php">ประวัติการสั่งซื้อ</a></li>
-  			<li><a href="">วิธีการสั่งซื้อสินค้า</a></li>
-  			<li><a href="order-paid.php">แจ้งการจ่ายเงิน</a></li>
-  			<li><a href="">แจ้งคืนสินค้า</a></li>
-  			<li><a href="">แจ้งปัญหาสินค้า</a></li>
-			</ul>
-		</div>
-		</div>
-</div><!--Header-->
 <div id="container">
 <div class="header-paid">
 	<span>แจ้งการจ่ายเงิน</span>

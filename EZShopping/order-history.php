@@ -1,40 +1,6 @@
-<?php
-session_start();
-ob_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="Main.css">
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<style>
-	form {
-		margin: 20px auto;
-		width: 70%;
-		border: solid 0px;
-		font-size: 12px;
-		color: green;
-	}
-
-	form span{
-		margin-left: 8px;
-	}
-
-	form button{
-		margin-left: 10px;
-	}
-	form  > * {
-		font: 14px tahoma;
-		padding: 3px;	
-	}
-	input {
-		width: 200px;
-		margin: 3px;
-		background: #ffc;
-		border: solid 1px gray;
-	}
+<?php include "include/header.php" ?>
+<style>
+	
 	input.receive {
 		width:100px;
 	}
@@ -151,14 +117,13 @@ ob_start();
 		width:960px;
 		background: #A9A9A9;
 		padding: 3px;
+		margin:auto;
 	}
 	td img {
 		height: 16px;
 		vertical-align: top;
 	}
 </style>
-<script src="js/jquery-2.1.1.min.js"> </script>
-<script src="js/jquery.blockUI.js"> </script>
 <script>
 $(function() {
 	$('button#index').click(function() {
@@ -194,56 +159,6 @@ function ajaxSend(a, action) {
 	})	;
 }
 </script>
-</head>
-<body>
-<div class="header">
-	<div class="top-bar">
-		<div class="top-menu-bar">
-			<ul class="top-menu">
-				<li style="background:#708090;"><a href=""><i class="fa fa-handshake-o" aria-hidden="true"></i> ฝากขายสินค้า</a></li>
-				
-			</ul>
-		</div><!--top-menu-bar-->
-	</div><!--top-bar-->
-		<div class="middle-bar">
-		<div class="middle-menu-bar">
-			<div class="brand">
-			<a href="#">EZShopping.com</a>
-			</div>
-			<div class="search">
-			<form class="navbar-form">
-        
-          <input type="text" class="form-control" style="width: 320px" placeholder="Search">
-        <span><button class="btn">Search</button></span>
-      </form>
-			</div>
-			<div class="cart">
-
-			<a href="" id="order"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-			<span id="cart-count"><B>0</B></span>
-			<button id="order">Cart</button>
-			</div>
-		</div><!--middle-menu-bar-->
-	</div><!--middle-bar-->
-	<div class="bottom-bar">
-	<div class="bottom-menu">
-			<ul>
-  			<li><a class="active" href="#home"></a></li>
-  			<li><a href="#news"></a></li>
-  			<li><a href="#contact"></a></li>
-  			<li><a class="active" href="#home"></a></li>
-  			<li><a href="#news"></a></li>
-  			<li><a href="#contact"></a></li>
-  			<li><a class="active" href="#home"></a></li>
-  			<li><a href="#news"></a></li>
-  			<li><a href="#contact"></a></li>
-			</ul>
-		</div>
-		</div>
-</div><!--Header-->
-<div id="container">
-
-
 <div id="content">
 <div class="header-history">
 	<span>ประวัติการสั่งซื้อ</span>

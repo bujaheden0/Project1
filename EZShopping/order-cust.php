@@ -129,7 +129,7 @@ $(function() {
 	<a href="main.php"><h1>EZShopping.com</h1></a>
 	<ul>
 		<li>ตะกร้าสินค้า</li>
-		<li>ที่อยู่ในการจัดส่ง</li>
+		<li style="background: #B0C4DE;">ที่อยู่ในการจัดส่ง</li>
 		<li>ยืนยันการสั่งซื้อ</li>
 		<li>ช่องทางการชำระเงิน</li>
 	</ul>
