@@ -123,13 +123,21 @@
 		height: 16px;
 		vertical-align: top;
 	}
+	button.disable{
+		cursor: default;
+		background: whitesmoke !important;
+		color: silver !important;
+	}
+	button.disable:hover {
+		background: whitesmoke !important;
+	}
 </style>
 <script>
 $(function() {
 	$('button#index').click(function() {
 		location.href = "main.php";
 	});
-	$('button.update').click(function() {
+	$('button').click(function() {
 		ajaxSend($(this), 'update');
 	});
 });
@@ -196,9 +204,6 @@ if($_POST['email']) {
 			if($data['paid'] == "yes") {
 				$img_pay = "images/yes.png";
 			}
-			if($data['delivery'] == "yes") {
-				$img_delivery = "images/yes.png";
-			}
 			$sql = "SELECT order_details.*, products.pro_id, products.pro_name, products.price  
 			 			FROM order_details LEFT JOIN products 
 						ON order_details.pro_id = products.pro_id
@@ -254,12 +259,8 @@ if(isset($_SESSION['user'])){
 			$date =  $data['order_date'];
 			//กำหนดภาพให้สอดคล้องกับสถานะการโอนเงินและจัดส่ง
 			$img_pay = "images/no.png";
-			$img_delivery = "images/no.png";
 			if($data['paid'] == "yes") {
 				$img_pay = "images/yes.png";
-			}
-			if($data['delivery'] == "yes") {
-				$img_delivery = "images/yes.png";
 			}
 			$sql = "SELECT order_details.*, products.pro_id, products.pro_name, products.price  
 			 			FROM order_details LEFT JOIN products 
@@ -271,12 +272,11 @@ if(isset($_SESSION['user'])){
   					<caption>
    	 					วันที่: <?php echo $date; ?> &nbsp;&nbsp;
                         รหัสการสั่งซื้อ: <?php echo $order_id; ?>
-  						<div><img src="<?php echo $img_pay; ?>"> การชำระเงิน  - 
-                         		<img src="<?php echo $img_delivery; ?>"> การจัดส่งสินค้า</div>
+  						<div><img src="<?php echo $img_pay; ?>"> การชำระเงิน  </div>
   					</caption>
 				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th>
 				
-				<th>แจ้งรับสินค้า</th>
+				<th>สถานะการจัดส่งสินค้า</th><th>แจ้งรับสินค้า</th>
 				
 				</tr>
 				<?php
@@ -284,12 +284,18 @@ if(isset($_SESSION['user'])){
 					while($order = mysqli_fetch_array($result)) {
 						$sub_total = $order['quantity'] * $order['price'];
 						$pro_id = $order['pro_id'];
-						$class = 'disable';
-						$img_pay = "images/no.png";
+						$img_delivery = "images/no.png";
+						$img_recieve = "images/no.png";
+						$class = 'enable';
+						if($order['delivery'] == 'yes'){
+							$img_delivery = "images/yes.png";
+						}
 						if($order['recieve'] == 'yes'){
 							$class = 'disable';
-							$img_pay = "images/yes.png";
+							$img_recieve = "images/yes.png";
+							
 						}
+
 				?>
 				<tr>
     				<td><?php echo $order['pro_name']; ?></td>
@@ -297,16 +303,17 @@ if(isset($_SESSION['user'])){
     				<td><?php echo $order['quantity']; ?></td>
     				<td><?php echo $order['price']; ?></td>
    					<td><?php echo number_format($sub_total); ?></td>
+   					<td><img src="<?php echo $img_delivery; ?>"></td>
    					<td>
    					<?php
-   					if($data['paid'] == "yes" && $data['delivery'] == "yes"){
-   						
-   					?>
-   					<img src="<?php echo $img_pay; ?>">
-   					<button class="update btn btn-primary" data-id="<?php echo $order['pro_id']; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
-   					<?php
+   					if($data['paid'] == "yes" && $order['delivery'] == "yes"){
+   						?>
+   						<img src="<?php echo $img_recieve; ?>">
+   						<button class="<?php echo $class; ?> btn btn-primary" data-id="<?php echo $order['pro_id']; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
    					
-   				}
+   					<?php
+   				    }
+   				    
    					?>
 				</tr>
 				<?php
@@ -314,7 +321,7 @@ if(isset($_SESSION['user'])){
 				}
 				?>
 
-				<tr><td colspan="4">รวมทั้งหมด</td><td><?php echo number_format($grand_total); ?></td><td></td></tr>
+				<tr><td colspan="4">รวมทั้งหมด</td><td><?php echo number_format($grand_total); ?></td><td></td><td></td></tr>
 			</table>
 <?php
 		}  //end while

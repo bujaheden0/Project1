@@ -131,12 +131,20 @@ include "lib/IMGallery/imgallery-no-jquery.php";
 while($pro = mysqli_fetch_array($result)) {
 	 $id =  $pro['pro_id'];
 	 $src = "read-image.php?pro_id=" . $pro['pro_id'];
+	 if($pro['quantity'] >= 1){
+	 	$status = "มีสินค้า";
+	 }
+	 else{
+	 $status = "สินค้าหมดชั่วคราว";
+	 }
  ?>
 <section class="section-pro">
 	<div class="div-img"><?php gallery_echo_img($src); ?></div>
     <div class="div-summary">
     <?php
+    	echo "<span class=\"status\">สถานะ :" . $status ."</span><br>";
 		echo "<a href=# class=\"pro-name\" data-id=\"$id\">". $pro['pro_name'] . "</a><br>";
+		
 		?>
     </div>
     <div class="div-rating">
@@ -144,11 +152,13 @@ while($pro = mysqli_fetch_array($result)) {
         	<script> updateStar(<?php echo $id; ?>); </script>
         </span>
     </div>
+    <br>
     <div class="div-price">
     <?php
     	echo  "<span class=\"price\">" . number_format($pro['price']) . " บาท</span>";
     ?>
     </div>
+
     <div class="div-detail">
     <?php
     echo "<button class=\"more-detail btn btn-default\" data-id=\"$id\" >BUY</button>";
