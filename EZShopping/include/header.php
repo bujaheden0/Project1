@@ -123,7 +123,7 @@ function cartCount() {  //ฟังก์ชั่นสำหรับอ่า
 		<div class="top-menu-bar">
 			<ul class="top-menu">
 				<li style="background:#708090;"><a href=""><i class="fa fa-handshake-o" aria-hidden="true"></i> ฝากขายสินค้า</a></li>
-				<li><a href="">Administrator</a></li>
+				<li><a href="../DataStore/index.php">Administrator</a></li>
 			</ul>
 		</div><!--top-menu-bar-->
 	</div><!--top-bar-->
