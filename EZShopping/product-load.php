@@ -34,7 +34,7 @@ $out_of_stock = ($pro['quantity']==0)?true:false;
     </span>
     
     <!-- ส่วนต่อไปนี้อยู่ใน form เพระต้องส่งขึ้นไปจัดเก็บเมื่อหยิบใส่รถเข็น -->
-    <form id="dialog-form"> 
+    <form method="post" id="dialog-form"> 
     <input type="hidden" name="pro_id" value="<?php echo $pro_id; ?>">
  	<?php
 		$sql = "SELECT * FROM attributes WHERE pro_id = {$pro['pro_id']}";

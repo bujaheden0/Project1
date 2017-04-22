@@ -22,11 +22,12 @@ for($i=0; $i < count($_POST['prop_name']); $i++) { //เชื่อมชื่
 }
 $att = implode(", ", $attrs); //เชื่อมแต่ละคุณลักษณะด้วย "," เช่น สี:ฟ้า,ขนาด:M
 $sid = session_id();
-
 $sql = "REPLACE INTO cart (pro_id,attribute,quantity,date_shop,session_id)VALUES(
 		 '$pro_id', '$att', '$quantity', NOW(), '$sid')";
 mysqli_query($link, $sql);
-
+$count = $pro['quantity'] - $quantity;
+$sql = "UPDATE products SET quantity = $count WHERE pro_id = '$pro_id'";
+$r = mysqli_query($link,$sql);
 //ลบรายการที่เพิ่มลงในรถเข็นมาเกิน 1 วัน (คาดว่าคงไม่ซื้อแล้วหละ)
 $sql = "DELETE FROM cart WHERE DATEDIFF(NOW(), date_shop) > 1";
 mysqli_query($link, $sql);
