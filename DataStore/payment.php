@@ -66,8 +66,8 @@ include "check-login.php";
 		margin: 5px;
 	}
 	#dialog {
-		display: auto;
-		font-size: auto !important;
+		display: none;
+		font-size: 14px !important;
 	}
 	#form-sup [type=text],  #form-sup textarea{
 		width: 370px;
