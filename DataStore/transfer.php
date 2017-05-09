@@ -89,18 +89,21 @@ $(function() {
 		$('#form-sup')[0].reset();
 		$('#action').val('add');
  		showDialog();
+
 	});
 
 	
 	$('#send').click(function() {		//คลิกปุ่ม "ส่งข้อมูล" ที่อยู่ในไดอะล็อก
 		var data = $('#form-sup').serializeArray();
 		ajaxSend(data);
+
 	});
 	
 	$('button.edit').click(function() {
 		var orderID = $(this).attr('data-id');
 		var url = "transfer-detail.php?tran_id=" + orderID ;
 		location.href = url;
+
 	});	
 	
 	$('button.del').click(function() {

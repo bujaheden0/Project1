@@ -4,6 +4,7 @@ include "check-login.php";
 <!doctype html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <title>Data Store</title>
 <style>
@@ -35,7 +36,7 @@ include "check-login.php";
 		text-align: left !important;
 	}
 	td:nth-child(7) {
-		width: 100px;
+		width: 130px;
 	}
 	table th {
 		background: green;
@@ -115,8 +116,12 @@ include "check-login.php";
 	a.disable:hover {
 		background: whitesmoke !important;
 	}
+
+
 </style>
+<link href="js/jquery-ui.min.css" rel="stylesheet">
 <script src="js/jquery-2.1.1.min.js"> </script>
+<script src="js/jquery-ui.min.js"> </script>
 <script src="js/jquery.blockUI.js"> </script>
 <script>
 $(function() {
@@ -126,8 +131,42 @@ $(function() {
 	$('a.delete').click(function() {
 		ajaxSend($(this),'delete');
 	});
+	
+	$('a.more-detail, a.pro-name').click(function() {
+		var id = $(this).attr('data-id');
+		$.ajax({
+			type: 'post',
+			url: 'payment-load.php',
+			data: {'id': id},
+			dataType: 'html',
+			beforeSend: function() {
+				$.blockUI({message:'<h3>กำลังโหลดข้อมูล...</h3>'});
+			},
+			success: function(result) {
+				$.unblockUI();
+				$('#dialog').html(result);
+				$('#dialog').dialog({
+					title: 'รายละเอียดสินค้า',
+					modal: true,
+					width: 'auto',
+					position: { my: "left+150 top", at: "click top+20px", of: window}
+				});
+				$('.ui-dialog-titlebar-close').focus();
+			},
+			complete: function() {
+				$.unblockUI();
+			}
+		});
+	});
 });
-
+function showDialog() {
+	$('#dialog').dialog({
+		title: 'รูป',
+		width: 'auto',
+		modal: true,
+		position: { my: "center top", at: "center top", of: $('nav')}
+	});	
+}
 function ajaxSend(a, action) {
 	if(!confirm('ยืนยันการกระทำนี้')) {
 		return;
@@ -151,7 +190,7 @@ function ajaxSend(a, action) {
 			$.unblockUI();
 		}
 	})	;
-}
+} 
 </script>
 </head>
 
@@ -198,6 +237,9 @@ while($pay = mysqli_fetch_array($result)) {
     		<a href="#" class="<?php echo $class; ?>" 
             		data-id="<?php echo $pay['pay_id']; ?>" 
             		data-order="<?php echo $pay['order_id']; ?>">ได้รับแล้ว</a>
+            <a href="#" class="more-detail" data-id="<?php echo $pay['pay_id']; ?> "data-toggle="modal" >ดูรูป</a>
+            <?php
+            //echo "<button class=\"more-detail btn btn-default\" data-id=$pay['pay_id'];>BUY</button>"; ?>
      		<a href="#" class="delete" data-id="<?php echo $pay['pay_id']; ?>">ลบ</a>
     </td>
 </tr>
@@ -212,6 +254,33 @@ if(page_total() > 1) { 	 //ให้แสดงหมายเลขเพจ�
 	echo '</p>';
 }
 ?>
+
+<div id="dialog">
+
+<?php
+
+include "dblink.php";
+	include "lib/IMGallery/imgallery-no-jquery.php";
+	$pay_id = $_POST['payID'];//////////////////
+	$sql = "SELECT * FROM payments_images where pay_id = '$pay_id'";///////////////////////
+	$r = mysqli_query($link, $sql);
+	//นำเอารูปมาเก็บไว้ 
+if(mysqli_num_rows($r) > 0) {
+			echo "<br>";
+			$src = "read-image2.php?id=";//quary sql ไฟล์ read-image.php
+			gallery_thumb_width(50);
+			while($img =mysqli_fetch_array($r)) {
+				gallery_echo_img($src . $img['img_id']);
+			}
+		}
+	
+?>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"crossorigin="anonymous"></script>
+<script type="text/javascript" src="main.js"></script>
+
+</div>
+
+
 </article>
 </body>
 </html>
