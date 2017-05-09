@@ -125,22 +125,22 @@ if($total == 0) {
  	echo "รายการสินค้า: $field  (ลำดับที่  $first - $last จาก $total)"; 
 ?>
     <br>
+
 <?php
 include "lib/IMGallery/imgallery-no-jquery.php";
-
 while($pro = mysqli_fetch_array($result)) {
 	 $id =  $pro['pro_id'];
 	 $src = "read-image.php?pro_id=" . $pro['pro_id'];
-	 if($pro['quantity'] >= 1){
-	 	$status = "มีสินค้า";
-	 }
-	 else{
-	 $status = "สินค้าหมดชั่วคราว";
+	 $status = "มีสินค้า";
+	 $quan_cur = $pro['quantity_current'];
+	 if($quan_cur == 0){
+	 	$status = "สินค้าหมด";
 	 }
  ?>
 <section class="section-pro">
 	<div class="div-img"><?php gallery_echo_img($src); ?></div>
     <div class="div-summary">
+
     <?php
     	echo "<span class=\"status\">สถานะ :" . $status ."</span><br>";
 		echo "<a href=# class=\"pro-name\" data-id=\"$id\">". $pro['pro_name'] . "</a><br>";

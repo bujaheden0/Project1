@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2017 at 07:30 AM
+-- Generation Time: May 09, 2017 at 01:42 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -53,7 +53,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`item_id`, `pro_id`, `attribute`, `quantity`, `date_shop`, `session_id`) VALUES
-(245, 1, '', 10, '2017-04-22 02:54:22', 'ql1b331eovqssn6hcv0cpop013');
+(259, 14, '', 10, '2017-05-09 08:33:27', '1he1pe0ripnv9iarctmbcpj9o7');
 
 -- --------------------------------------------------------
 
@@ -150,10 +150,12 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `cust_id`, `order_date`, `paid`) VALUES
 (1000191, 5, '2017-04-19 22:51:28', 'yes'),
+(1000192, 5, '2017-04-22 23:05:37', 'no'),
 (1000189, 5, '2017-04-19 22:49:46', 'yes'),
 (1000188, 5, '2017-04-17 23:57:21', 'yes'),
 (1000187, 5, '2017-04-17 23:56:56', 'yes'),
-(1000186, 5, '2017-04-17 21:12:11', 'no');
+(1000186, 5, '2017-04-17 21:12:11', 'no'),
+(1000193, 5, '2017-05-09 04:55:33', 'no');
 
 -- --------------------------------------------------------
 
@@ -183,7 +185,9 @@ INSERT INTO `order_details` (`item_id`, `order_id`, `pro_id`, `attribute`, `quan
 (190, 1000188, 15, '', 1, 'yes', 'yes'),
 (191, 1000188, 16, '', 1, 'yes', 'yes'),
 (192, 1000189, 15, '', 1, 'yes', 'yes'),
-(193, 1000191, 14, '', 1, 'yes', 'yes');
+(193, 1000191, 14, '', 1, 'yes', 'yes'),
+(194, 1000192, 10, '', 1, 'no', 'no'),
+(195, 1000193, 16, '', 10, 'no', 'no');
 
 -- --------------------------------------------------------
 
@@ -234,7 +238,9 @@ INSERT INTO `payments` (`pay_id`, `order_id`, `cust_id`, `bank`, `location`, `am
 (25, 1000147, 5, 'à¸à¸£à¸¸à¸‡à¹€à¸—à¸ž', 'Kathu', '1300.00', '2017/03/26 12:12', 'no'),
 (26, 1000146, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'Kathu', '20000.00', '2017/03/30 14:59', 'yes'),
 (27, 1000146, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'Kathu', '20000.00', '2017/03/30 14:59', 'yes'),
-(28, 1000146, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'Kathu', '20000.00', '2017/03/30 14:59', 'yes');
+(28, 1000146, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'Kathu', '20000.00', '2017/03/30 14:59', 'yes'),
+(30, 1000193, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'kathu', '1900.00', '2017/05/09 4:56', 'no'),
+(31, 1000193, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'kathu', '1900.00', '2017/05/09 4:56', 'no');
 
 -- --------------------------------------------------------
 
@@ -261,30 +267,31 @@ CREATE TABLE `products` (
   `pro_name` varchar(200) DEFAULT NULL,
   `detail` text,
   `price` mediumint(8) UNSIGNED DEFAULT NULL,
-  `quantity` smallint(5) UNSIGNED DEFAULT NULL
+  `quantity` smallint(5) UNSIGNED DEFAULT NULL,
+  `quantity_current` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`pro_id`, `cat_id`, `sup_id`, `pro_name`, `detail`, `price`, `quantity`) VALUES
-(1, 1, 1, 'KEYBOARD RAZER BLACKWIDOW CHROMA V.2 ENG', 'Good product', 6590, 5),
-(2, 1, 2, 'KEYBOARD RAZER BLACKWIDOW ULTIMATE 2014 (THAI)', 'Good product', 5290, 1),
-(3, 1, 3, 'KEYBOARD RAZER BLACKWIDOW X TOURNAMENT CHROMA ENG', 'Good product', 5490, 1),
-(4, 1, 4, 'KEYBOARD RAZER DEATHSTALKER CHROMA TH-LG', 'Good product', 3590, 0),
-(13, 4, 4, 'MOUSE PAD ASUS CERBERUS', 'Good product', 590, 0),
-(12, 3, 1, 'HEADSET RAZER KRAKEN MOBILE PURPLE', 'Good product', 3390, 1),
-(11, 3, 1, 'HEADSET RAZER KRAKEN MOBILE ORANGE', 'Good product', 3390, 1),
-(10, 3, 3, 'HEADSET RAZER KRAKEN MOBILE BLUE', 'Good product', 3390, 1),
-(9, 3, 3, 'HEADSET RAZER KRAKEN Forged Edition', 'Good product', 12900, 1),
-(8, 2, 2, 'MOUSE STELLSERIES SENSEI GAMING', 'Good product', 2590, 1),
-(7, 2, 2, 'MOUSE STEELSERIES RIVAL 300 CSGO HYPERBEAST', 'Good product', 2190, 1),
-(6, 2, 2, 'MOUSE STEELSERIES RIVAL 100 FORGED RED', 'Good product', 1390, 1),
-(5, 2, 2, 'MOUSE STEELSERIES RIVAL 100 BLACK', 'Good product', 1390, 1),
-(14, 4, 4, 'MOUSE PAD CORSAIR MM300 SMALL', 'Good product', 690, 0),
-(15, 4, 4, 'MOUSE PAD MAD CATZ G.L.I.D.E. 3 GAMING SURFACE', 'Good product', 590, 0),
-(16, 4, 4, 'MOUSE PAD NEOLUTION E-SPORT LOGO EDITION MINI', 'Good product', 190, 0);
+INSERT INTO `products` (`pro_id`, `cat_id`, `sup_id`, `pro_name`, `detail`, `price`, `quantity`, `quantity_current`) VALUES
+(1, 1, 1, 'KEYBOARD RAZER BLACKWIDOW CHROMA V.2 ENG', 'Good product', 6590, 10, 10),
+(2, 1, 2, 'KEYBOARD RAZER BLACKWIDOW ULTIMATE 2014 (THAI)', 'Good product', 5290, 10, 10),
+(3, 1, 3, 'KEYBOARD RAZER BLACKWIDOW X TOURNAMENT CHROMA ENG', 'Good product', 5490, 10, 10),
+(4, 1, 4, 'KEYBOARD RAZER DEATHSTALKER CHROMA TH-LG', 'Good product', 3590, 10, 10),
+(13, 4, 4, 'MOUSE PAD ASUS CERBERUS', 'Good product', 590, 10, 10),
+(12, 3, 1, 'HEADSET RAZER KRAKEN MOBILE PURPLE', 'Good product', 3390, 10, 10),
+(11, 3, 1, 'HEADSET RAZER KRAKEN MOBILE ORANGE', 'Good product', 3390, 10, 10),
+(10, 3, 3, 'HEADSET RAZER KRAKEN MOBILE BLUE', 'Good product', 3390, 10, 10),
+(9, 3, 3, 'HEADSET RAZER KRAKEN Forged Edition', 'Good product', 12900, 10, 10),
+(8, 2, 2, 'MOUSE STELLSERIES SENSEI GAMING', 'Good product', 2590, 10, 10),
+(7, 2, 2, 'MOUSE STEELSERIES RIVAL 300 CSGO HYPERBEAST', 'Good product', 2190, 10, 10),
+(6, 2, 2, 'MOUSE STEELSERIES RIVAL 100 FORGED RED', 'Good product', 1390, 10, 10),
+(5, 2, 2, 'MOUSE STEELSERIES RIVAL 100 BLACK', 'Good product', 1390, 10, 10),
+(14, 4, 4, 'MOUSE PAD CORSAIR MM300 SMALL', 'Good product', 690, 10, 10),
+(15, 4, 4, 'MOUSE PAD MAD CATZ G.L.I.D.E. 3 GAMING SURFACE', 'Good product', 590, 10, 10),
+(16, 4, 4, 'MOUSE PAD NEOLUTION E-SPORT LOGO EDITION MINI', 'Good product', 190, 10, 10);
 
 -- --------------------------------------------------------
 
@@ -485,7 +492,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
+  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -505,17 +512,17 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000192;
+  MODIFY `order_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000194;
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `pay_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `pay_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `payments_images`
 --

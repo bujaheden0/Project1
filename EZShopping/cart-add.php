@@ -10,6 +10,7 @@ $quantity = intval($_POST['quantity']);
 $sql = "SELECT quantity FROM products WHERE pro_id = '$pro_id'";
 $r = mysqli_query($link, $sql);
 $pro = mysqli_fetch_array($r);
+
 if($pro['quantity'] < $quantity) {
 	echo "จำนวนสินค้าในสต๊อกมีไม่เพียงพอกับจำนวนที่ท่านระบุ";
 	mysqli_close($link);
@@ -25,8 +26,8 @@ $sid = session_id();
 $sql = "REPLACE INTO cart (pro_id,attribute,quantity,date_shop,session_id)VALUES(
 		 '$pro_id', '$att', '$quantity', NOW(), '$sid')";
 mysqli_query($link, $sql);
-$count = $pro['quantity'] - $quantity;
-$sql = "UPDATE products SET quantity = $count WHERE pro_id = '$pro_id'";
+$quan_cur = $pro['quantity'] - $quantity;
+$sql = "UPDATE products SET quantity_current = $quan_cur WHERE pro_id = '$pro_id'";
 $r = mysqli_query($link,$sql);
 //ลบรายการที่เพิ่มลงในรถเข็นมาเกิน 1 วัน (คาดว่าคงไม่ซื้อแล้วหละ)
 $sql = "DELETE FROM cart WHERE DATEDIFF(NOW(), date_shop) > 1";

@@ -12,7 +12,7 @@ $sql = "SELECT products.*, categories.cat_name
 	
 $result = mysqli_query($link, $sql);
 $pro = mysqli_fetch_array($result);
-$out_of_stock = ($pro['quantity']==0)?true:false;
+$out_of_stock = ($pro['quantity_current']==0)?true:false;
 
 ?>
 <div id="dialog-content">

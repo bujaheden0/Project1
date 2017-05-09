@@ -172,18 +172,33 @@ if($_POST) {
 					WHERE cart.item_id = '$item_id'";
 		$r = mysqli_query($link, $sql);
 		$pro = mysqli_fetch_array($r);
-		$old_quan = $_POST['quantity'] + $pro['quantity'];	
+		$pro_id = $pro['pro_id'];
+		$quan_cur = $pro['quantity'] - $quan;
+		$quan_del = $pro['quantity'];
 		if($quan > $pro['quantity']) {
 			echo '<br><span class="out-of-stock">จำนวนสินค้าในสต๊อกมีไม่เพียงพอกับจำนวนที่ท่านระบุ</span>';
-		}
+		} 
 		else {
 			$sql = "UPDATE cart SET quantity = '$quan' WHERE item_id = '$item_id'";
 			mysqli_query($link, $sql);
+			$sql = "UPDATE products SET quantity_current = '$quan_cur' WHERE pro_id = '$pro_id'";
+			mysqli_query($link,$sql);
+
 		}
 	}
 	else if($_POST['action'] == "delete") {
+		$quan = intval($_POST['quantity']);
+		$sql = "SELECT cart.pro_id, products.quantity FROM cart 
+		 			LEFT JOIN products ON cart.pro_id = products.pro_id
+					WHERE cart.item_id = '$item_id'";
+		$r = mysqli_query($link, $sql);
+		$pro = mysqli_fetch_array($r);
+		$pro_id = $pro['pro_id'];
+		$quan_del = $pro['quantity'];
 		$sql = "DELETE FROM cart WHERE item_id = '$item_id'";
 		mysqli_query($link, $sql);	
+		$sql = "UPDATE products SET quantity_current = '$quan_del' WHERE pro_id = '$pro_id'";
+		mysqli_query($link,$sql);
 	}
 }
 
