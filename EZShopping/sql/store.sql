@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2017 at 01:42 AM
+-- Generation Time: May 10, 2017 at 12:49 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -53,7 +53,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`item_id`, `pro_id`, `attribute`, `quantity`, `date_shop`, `session_id`) VALUES
-(259, 14, '', 10, '2017-05-09 08:33:27', '1he1pe0ripnv9iarctmbcpj9o7');
+(269, 15, '', 1, '2017-05-09 11:12:38', 'giffltstdf8hiumi71nhjs7bp0');
 
 -- --------------------------------------------------------
 
@@ -85,7 +85,7 @@ INSERT INTO `categories` (`cat_id`, `cat_name`) VALUES
 CREATE TABLE `customers` (
   `cust_id` mediumint(8) UNSIGNED NOT NULL,
   `email` varchar(150) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
   `name` varchar(150) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `address` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(50) NOT NULL,
@@ -98,7 +98,8 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`cust_id`, `email`, `password`, `name`, `address`, `phone`, `verify`) VALUES
 (5, 'Tonnarawit123@hotmail.com', '073415644', 'à¸™à¸£à¸²à¸§à¸´à¸Šà¸à¹Œ à¹à¸à¹‰à¸§à¸šà¸¸à¸', '80/1 à¸¡à¸«à¸²à¸§à¸´à¸—à¸¢à¸²à¸¥à¸±à¸¢à¸ªà¸‡à¸‚à¸¥à¸²à¸™à¸„à¸£à¸´à¸™à¸—à¸£à¹Œ à¸§à¸´à¸—à¸¢à¸²à¹€à¸‚à¸•à¸ à¸¹à¹€à¸à¹‡à¸•', '0973398921', ''),
-(6, 'Tonnarawit@hotmail.com', '1234567', '???????? ???????', '??????????????????', '0973398921', '');
+(6, 'Tonnarawit@hotmail.com', '1234567', '???????? ???????', '??????????????????', '0973398921', ''),
+(7, 'Tonnarawit1234@hotmail.com', '1234', 'à¸™à¸£à¸²à¸§à¸´à¸Šà¸à¹Œ à¹à¸à¹‰à¸§à¸šà¸¸à¸', '5/1', '0973398921', '131134');
 
 -- --------------------------------------------------------
 
@@ -155,7 +156,9 @@ INSERT INTO `orders` (`order_id`, `cust_id`, `order_date`, `paid`) VALUES
 (1000188, 5, '2017-04-17 23:57:21', 'yes'),
 (1000187, 5, '2017-04-17 23:56:56', 'yes'),
 (1000186, 5, '2017-04-17 21:12:11', 'no'),
-(1000193, 5, '2017-05-09 04:55:33', 'no');
+(1000193, 5, '2017-05-09 04:55:33', 'yes'),
+(1000194, 5, '2017-05-09 08:48:16', 'yes'),
+(1000195, 5, '2017-05-10 19:40:15', 'no');
 
 -- --------------------------------------------------------
 
@@ -187,7 +190,10 @@ INSERT INTO `order_details` (`item_id`, `order_id`, `pro_id`, `attribute`, `quan
 (192, 1000189, 15, '', 1, 'yes', 'yes'),
 (193, 1000191, 14, '', 1, 'yes', 'yes'),
 (194, 1000192, 10, '', 1, 'no', 'no'),
-(195, 1000193, 16, '', 10, 'no', 'no');
+(195, 1000193, 16, '', 10, 'yes', 'yes'),
+(196, 1000194, 14, '', 1, 'yes', 'yes'),
+(197, 1000194, 16, '', 10, 'no', 'no'),
+(198, 1000195, 13, '', 1, 'no', 'no');
 
 -- --------------------------------------------------------
 
@@ -240,7 +246,7 @@ INSERT INTO `payments` (`pay_id`, `order_id`, `cust_id`, `bank`, `location`, `am
 (27, 1000146, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'Kathu', '20000.00', '2017/03/30 14:59', 'yes'),
 (28, 1000146, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'Kathu', '20000.00', '2017/03/30 14:59', 'yes'),
 (30, 1000193, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'kathu', '1900.00', '2017/05/09 4:56', 'no'),
-(31, 1000193, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'kathu', '1900.00', '2017/05/09 4:56', 'no');
+(31, 1000193, 5, 'à¹„à¸—à¸¢à¸žà¸²à¸“à¸´à¸Šà¸¢à¹Œ', 'kathu', '1900.00', '2017/05/09 4:56', 'yes');
 
 -- --------------------------------------------------------
 
@@ -280,7 +286,7 @@ INSERT INTO `products` (`pro_id`, `cat_id`, `sup_id`, `pro_name`, `detail`, `pri
 (2, 1, 2, 'KEYBOARD RAZER BLACKWIDOW ULTIMATE 2014 (THAI)', 'Good product', 5290, 10, 10),
 (3, 1, 3, 'KEYBOARD RAZER BLACKWIDOW X TOURNAMENT CHROMA ENG', 'Good product', 5490, 10, 10),
 (4, 1, 4, 'KEYBOARD RAZER DEATHSTALKER CHROMA TH-LG', 'Good product', 3590, 10, 10),
-(13, 4, 4, 'MOUSE PAD ASUS CERBERUS', 'Good product', 590, 10, 10),
+(13, 4, 4, 'MOUSE PAD ASUS CERBERUS', 'Good product', 590, 10, 9),
 (12, 3, 1, 'HEADSET RAZER KRAKEN MOBILE PURPLE', 'Good product', 3390, 10, 10),
 (11, 3, 1, 'HEADSET RAZER KRAKEN MOBILE ORANGE', 'Good product', 3390, 10, 10),
 (10, 3, 3, 'HEADSET RAZER KRAKEN MOBILE BLUE', 'Good product', 3390, 10, 10),
@@ -289,8 +295,8 @@ INSERT INTO `products` (`pro_id`, `cat_id`, `sup_id`, `pro_name`, `detail`, `pri
 (7, 2, 2, 'MOUSE STEELSERIES RIVAL 300 CSGO HYPERBEAST', 'Good product', 2190, 10, 10),
 (6, 2, 2, 'MOUSE STEELSERIES RIVAL 100 FORGED RED', 'Good product', 1390, 10, 10),
 (5, 2, 2, 'MOUSE STEELSERIES RIVAL 100 BLACK', 'Good product', 1390, 10, 10),
-(14, 4, 4, 'MOUSE PAD CORSAIR MM300 SMALL', 'Good product', 690, 10, 10),
-(15, 4, 4, 'MOUSE PAD MAD CATZ G.L.I.D.E. 3 GAMING SURFACE', 'Good product', 590, 10, 10),
+(14, 4, 4, 'MOUSE PAD CORSAIR MM300 SMALL', 'Good product', 690, 10, 9),
+(15, 4, 4, 'MOUSE PAD MAD CATZ G.L.I.D.E. 3 GAMING SURFACE', 'Good product', 590, 10, 9),
 (16, 4, 4, 'MOUSE PAD NEOLUTION E-SPORT LOGO EDITION MINI', 'Good product', 190, 10, 10);
 
 -- --------------------------------------------------------
@@ -345,19 +351,6 @@ INSERT INTO `product_images` (`img_id`, `pro_id`, `img_content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_item`
---
-
-CREATE TABLE `rating_item` (
-  `pro_id` smallint(5) UNSIGNED NOT NULL,
-  `name` varchar(200) DEFAULT NULL,
-  `detail` text,
-  `image` varchar(150) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `rating_star`
 --
 
@@ -367,6 +360,40 @@ CREATE TABLE `rating_star` (
   `star` mediumint(8) UNSIGNED DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `rating_star`
+--
+
+INSERT INTO `rating_star` (`pro_id`, `ip`, `star`) VALUES
+(4, '133.91.51.9', 5),
+(16, '44.1.68.234', 1),
+(15, '196.53.193.30', 5),
+(14, '4.208.123.15', 3),
+(13, '45.213.250.23', 2),
+(12, '89.127.23.47', 4),
+(11, '29.131.41.207', 3),
+(10, '147.28.9.238', 5),
+(9, '83.255.15.4', 3),
+(8, '116.103.18.10', 5),
+(7, '142.9.106.119', 5),
+(3, '219.172.210.237', 5),
+(2, '70.44.72.129', 5),
+(1, '164.90.157.63', 5),
+(14, '244.131.198.3', 5),
+(16, '29.236.17.146', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppiers_image`
+--
+
+CREATE TABLE `suppiers_image` (
+  `img_id` mediumint(8) UNSIGNED NOT NULL,
+  `sup_id` mediumint(8) UNSIGNED DEFAULT NULL,
+  `img_content` mediumblob
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -374,20 +401,26 @@ CREATE TABLE `rating_star` (
 --
 
 CREATE TABLE `suppliers` (
-  `sup_id` smallint(5) UNSIGNED NOT NULL,
+  `sup_id` mediumint(8) UNSIGNED NOT NULL,
   `sup_name` varchar(250) DEFAULT NULL,
-  `address` text,
+  `address` varchar(50) DEFAULT NULL,
   `phone` varchar(50) DEFAULT NULL,
-  `contact_name` varchar(200) DEFAULT NULL,
-  `website` varchar(250) DEFAULT NULL
+  `sup_password` varchar(50) NOT NULL,
+  `sub_accname` varchar(100) NOT NULL,
+  `sub_email` varchar(100) NOT NULL,
+  `sup_accnum` int(50) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `sub_brand` varchar(100) CHARACTER SET utf8 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `suppliers`
 --
 
-INSERT INTO `suppliers` (`sup_id`, `sup_name`, `address`, `phone`, `contact_name`, `website`) VALUES
-(1, 'fghfh', 'dasdasdasdasd', '00000000000', 'ddddddddddddddddddddddddd', 'dddddddddddddddddddddddd');
+INSERT INTO `suppliers` (`sup_id`, `sup_name`, `address`, `phone`, `sup_password`, `sub_accname`, `sub_email`, `sup_accnum`, `status`, `sub_brand`) VALUES
+(1, 'tanawut', '80/1', '0950166861', '12345', 'tanawut1', 'tanawut913@gmail.com', 123456789, 'yes', 'SCB'),
+(1002, 'tanawut1', '08/2', '0876262913', '', 'tanawut1', 'tanawut1@gmail.com', 123456789, 'no', 'ธนาคารกรุงเทพ'),
+(1003, 'tanawut1', '08/2', '0876262913', '0876262913', 'tanawut1', 'tanawut1@gmail.com', 123456789, 'no', 'ธนาคารกรุงเทพ');
 
 --
 -- Indexes for dumped tables
@@ -462,16 +495,16 @@ ALTER TABLE `product_images`
   ADD PRIMARY KEY (`img_id`);
 
 --
--- Indexes for table `rating_item`
---
-ALTER TABLE `rating_item`
-  ADD PRIMARY KEY (`pro_id`);
-
---
 -- Indexes for table `rating_star`
 --
 ALTER TABLE `rating_star`
   ADD PRIMARY KEY (`pro_id`,`ip`);
+
+--
+-- Indexes for table `suppiers_image`
+--
+ALTER TABLE `suppiers_image`
+  ADD PRIMARY KEY (`img_id`);
 
 --
 -- Indexes for table `suppliers`
@@ -492,7 +525,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
+  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -502,7 +535,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `cust_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cust_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `image`
 --
@@ -512,12 +545,12 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000194;
+  MODIFY `order_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000196;
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `item_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
 --
 -- AUTO_INCREMENT for table `payments`
 --
@@ -539,15 +572,15 @@ ALTER TABLE `products`
 ALTER TABLE `product_images`
   MODIFY `img_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
--- AUTO_INCREMENT for table `rating_item`
+-- AUTO_INCREMENT for table `suppiers_image`
 --
-ALTER TABLE `rating_item`
-  MODIFY `pro_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `suppiers_image`
+  MODIFY `img_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `sup_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `sup_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
