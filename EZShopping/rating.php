@@ -3,7 +3,7 @@ sleep(2);
 
 include "dblink.php";
 
-$item_id = $_POST['pro_id'];
+$pro_id = $_POST['pro_id'];
 $star = $_POST['num_star'];
 
 $ip = fake_ip();  //$_SERVER['REMOTE_ADDR'];

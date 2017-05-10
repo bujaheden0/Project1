@@ -28,18 +28,24 @@
 		padding-bottom: 3px !important;
 	}
 	td:nth-child(1) {
-		width: 250px;
+		width: 230px;
 		text-align: left !important;
 	}
 	td:nth-child(2) {
-		width: 200px;
-		text-align: left !important;
+		width: 70px;
+		
 	}
 	td:nth-child(3), td:nth-child(4) {
-		width: 80px;
+		width: 70px;
 	}
 	td:nth-child(5), td[colspan]+td {
 		width: 100px;
+	}
+	td:nth-child(6) {
+		width: 100px;	
+	}
+	td:nth-child(7) {
+		width: 200px;	
 	}
 	table th {
 		background: green;
@@ -140,6 +146,10 @@ $(function() {
 	$('button').click(function() {
 		ajaxSend($(this), 'update');
 	});
+
+	$('button').click(function() {
+		var id = $(this).attr('data-id');
+	});
 });
 
 
@@ -217,7 +227,7 @@ if($_POST['email']) {
   						<div><img src="<?php echo $img_pay; ?>"> การชำระเงิน  - 
                          		<img src="<?php echo $img_delivery; ?>"> การจัดส่งสินค้า</div>
   					</caption>
-				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th></tr>
+				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th><th>เรทติ้ง/th></tr>
 				<?php
 					$grand_total = 0;
 					while($order = mysqli_fetch_array($result)) {
@@ -225,7 +235,6 @@ if($_POST['email']) {
 				?>
 				<tr>
     				<td><?php echo $order['pro_name']; ?></td>
-    				<td><?php echo $order['attribute']; ?></td>
     				<td><?php echo $order['quantity']; ?></td>
     				<td><?php echo $order['price']; ?></td>
    					<td><?php echo number_format($sub_total); ?></td>
@@ -274,16 +283,16 @@ if(isset($_SESSION['user'])){
                         รหัสการสั่งซื้อ: <?php echo $order_id; ?>
   						<div><img src="<?php echo $img_pay; ?>"> การชำระเงิน  </div>
   					</caption>
-				<tr><th>ชื่อสินค้า</th><th>คุณลักษณะ</th><th>จำนวน</th><th>ราคา</th><th>รวม</th>
+				<tr><th>ชื่อสินค้า</th><th>จำนวน</th><th>ราคา</th><th>รวม</th>
 				
-				<th>สถานะการจัดส่งสินค้า</th><th>แจ้งรับสินค้า</th>
+				<th>สถานะการจัดส่งสินค้า</th><th>แจ้งรับสินค้า</th><th>เรทติ้ง</th>
 				
 				</tr>
 				<?php
 					$grand_total = 0;
 					while($order = mysqli_fetch_array($result)) {
 						$sub_total = $order['quantity'] * $order['price'];
-						$pro_id = $order['pro_id'];
+						$id = $order['pro_id'];
 						$img_delivery = "images/no.png";
 						$img_recieve = "images/no.png";
 						$class = 'enable';
@@ -299,22 +308,31 @@ if(isset($_SESSION['user'])){
 				?>
 				<tr>
     				<td><?php echo $order['pro_name']; ?></td>
-    				<td><?php echo $order['attribute']; ?></td>
     				<td><?php echo $order['quantity']; ?></td>
     				<td><?php echo $order['price']; ?></td>
    					<td><?php echo number_format($sub_total); ?></td>
    					<td><img src="<?php echo $img_delivery; ?>"></td>
    					<td>
+   					<img src="<?php echo $img_recieve; ?>">
    					<?php
    					if($data['paid'] == "yes" && $order['delivery'] == "yes"){
    						?>
-   						<img src="<?php echo $img_recieve; ?>">
-   						<button class="<?php echo $class; ?> btn btn-primary" data-id="<?php echo $order['pro_id']; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
-   					
+   						<button class="<?php echo $class; ?> btn btn-primary" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
+
+   						<td><span class="star-rate">
+        
+        <input type="radio" name="star_<?php echo $id; ?>" value="1"  checked>1
+        <input type="radio" name="star_<?php echo $id; ?>" value="2">2
+        <input type="radio" name="star_<?php echo $id; ?>" value="3">3
+        <input type="radio" name="star_<?php echo $id; ?>" value="4">4
+        <input type="radio" name="star_<?php echo $id; ?>" value="5">5
+        <button class="bt-rate" data-id="<?php echo $id; ?>">Rate</button>
+      </span></td>
    					<?php
    				    }
    				    
    					?>
+   					
 				</tr>
 				<?php
 					$grand_total += $sub_total;

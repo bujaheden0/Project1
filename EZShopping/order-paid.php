@@ -194,16 +194,18 @@ else {
 	if($err != "") {
 		echo '<h2 class="warning">'. $err . "</h2>";
 	}
+
 		
 	mysqli_close($link);
 }
 if(!$_POST || $err != "") {
-?>	
+
+?>
 <form class="input" method="post" enctype="multipart/form-data">
 	กรุณาใส่ข้อมูลให้ครบสมบูรณ์ เพื่อป้องกันข้อผิดพลาดในการตรวจสอบ <br>	
     <input type="email" name="email" placeholder="อีเมล *" required value="<?php echo $email;?>"> อีเมล ที่ท่านใช้ในการสั่งซื้อ <br>
     <input type="password" name="pswd" placeholder="รหัสผ่าน *" required  value="<?php echo $pswd;?>"> รหัสผ่าน ที่ท่านใช้ในการสั่งซื้อ <br>
-    <input type="text" name="order_id" placeholder="รหัสการสั่งซื้อ *" required> รหัสการสั่งซื้อ ที่ท่านได้รับทางอีเมล<br>
+    <input type="text" name="order_id" placeholder="รหัสการสั่งซื้อ *" required value="<?php echo $order_id;?>"> รหัสการสั่งซื้อ ที่ท่านได้รับทางอีเมล<br>
     <select name="bank">
     	<option>โอนผ่านธนาคาร *</option>
         <option value="ไทยพาณิชย์">- ไทยพาณิชย์</option>

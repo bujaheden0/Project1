@@ -140,6 +140,11 @@ while($pro = mysqli_fetch_array($result)) {
 <section class="section-pro">
 	<div class="div-img"><?php gallery_echo_img($src); ?></div>
     <div class="div-summary">
+    	<div class="div-rating">
+    	<span class="star-img" id="star-img-<?php echo $id; ?>">
+        	<script> updateStar(<?php echo $id; ?>); </script>
+        </span>
+    </div>
 
     <?php
     	echo "<span class=\"status\">สถานะ :" . $status ."</span><br>";
@@ -147,18 +152,12 @@ while($pro = mysqli_fetch_array($result)) {
 		
 		?>
     </div>
-    <div class="div-rating">
-    	<span class="star-img" id="star-img-<?php echo $id; ?>">
-        	<script> updateStar(<?php echo $id; ?>); </script>
-        </span>
-    </div>
-    <br>
+       <br>
     <div class="div-price">
     <?php
     	echo  "<span class=\"price\">" . number_format($pro['price']) . " บาท</span>";
     ?>
     </div>
-
     <div class="div-detail">
     <?php
     echo "<button class=\"more-detail btn btn-default\" data-id=\"$id\" >BUY</button>";
@@ -172,7 +171,18 @@ while($pro = mysqli_fetch_array($result)) {
 </div>
 </div><!--Content-->
 </div><!--Container-->
-<br class="clear">
+<div class="page">
+<br>
+<center>
+		<?php
+	if(page_total() > 1) { 	 //ให้แสดงหมายเลขเพจเฉพาะเมื่อมีมากกว่า 1 เพจ
+		echo '<div id="pagenum">';
+		page_echo_pagenums();
+		echo '</div>';
+	}
+?>
+</center>
+</div>
 <div id="dialog"></div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"crossorigin="anonymous"></script>
 <script type="text/javascript" src="main.js"></script>

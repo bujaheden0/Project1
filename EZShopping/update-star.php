@@ -4,7 +4,7 @@ include "dblink.php";
 $pro_id = $_POST['pro_id'];
 
 //คำสั่ง SQL ต่อไปนี้้เราจะอ่านค่าเฉลี่ยและจำนวนผู้ให้ดาวทั้งหมดของสินค้ารายการนั้น
-$sql = "SELECT AVG(star), COUNT(*) FROM rating_star WHERE item_id = '$item_id'";
+$sql = "SELECT AVG(star), COUNT(*) FROM rating_star WHERE pro_id = '$pro_id'";
 $rs = mysqli_query($link, $sql);
 $data = mysqli_fetch_array($rs);
 $score = $data[0];

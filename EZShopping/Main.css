@@ -1,6 +1,18 @@
 body{
       
 }
+.star-img{
+	
+	margin-left: 10px;
+	margin-top: 50px; 
+}
+.page{
+	margin:0 auto;
+	width: 960px;
+	height: 100px;
+	margin-top: 20px;
+	padding-left: 200px;
+}
 .container{
 	margin:0 auto;
 	
@@ -367,8 +379,8 @@ form:register{
 		width: 180px;
 		height:230px;
 		margin-right: 5px;
-		margin-top: 5px;
-		
+		margin-top: 10px;
+		margin-bottom: 20px;
 		padding-left: 5px; 
 
 }
@@ -409,7 +421,7 @@ a.pro-name, span.pro-name {
 
 	}
 	.div-price{
-		margin-top: 15px;
+		margin-top: 40px;
 	}
 
 	.div-detail button{

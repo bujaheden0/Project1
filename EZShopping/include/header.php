@@ -101,6 +101,31 @@ $(function() {
 	});
 	
 	cartCount(); //ให้อ่านข้อมูลในรถเข็นมาแสดงทันทีที่เปิดเพจ (อาจเปิดไปเพจอื่นแล้วกลับมาที่หน้าหลักอีก)
+	$('button.bt-rate').click(function() {
+		var pro_id = $(this).attr('data-id');	
+		var num_star = $(this).parent().find(':radio:checked').val();
+		
+		$.ajax({
+			url:'rating.php',
+			data:{'pro_id':pro_id, 'num_star':num_star},
+			dataType:'html',
+			type:'post',
+			beforeSend:function() {
+				$.blockUI();
+			},
+			success:function(result) {
+				if(result.length == 0) {
+					updateStar(pro_id);
+				}
+				else {
+					alert(result);
+				}
+			},
+			complete:function() {
+				$.unblockUI();
+			}
+		});
+	});
 	
 });
 
@@ -113,6 +138,18 @@ function cartCount() {  //ฟังก์ชั่นสำหรับอ่า
 			$('#cart-count').html(result);
 		}
 	});
+}
+
+function updateStar(pro_id) {
+	$.ajax({
+		url:'update-star.php',
+		data:{'pro_id':pro_id},
+		dataType:'html',
+		type:'post',
+		success:function(result) {
+			$('#star-img-' + pro_id).html(result);
+		}
+	});	
 }
 </script>
 </head>
