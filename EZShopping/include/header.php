@@ -159,7 +159,7 @@ function updateStar(pro_id) {
 	<div class="top-bar">
 		<div class="top-menu-bar">
 			<ul class="top-menu">
-				<li style="background:#708090;"><a href=""><i class="fa fa-handshake-o" aria-hidden="true"></i> ฝากขายสินค้า</a></li>
+				<li style="background:#708090;"><a href="../project1/login1.php"><i class="fa fa-handshake-o" aria-hidden="true"></i> ฝากขายสินค้า</a></li>
 				<li><a href="../DataStore/index.php">Administrator</a></li>
 			</ul>
 		</div><!--top-menu-bar-->
