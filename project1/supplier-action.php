@@ -5,7 +5,7 @@
 		echo "Please Login!";
 		exit();
 	}
-
+$sup_id = $_SESSION['sup_id'];
 }
 include "dblink.php";
 if($_POST['action'] == "add") {

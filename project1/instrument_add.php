@@ -41,7 +41,8 @@
         }*/
 
 	include "lib/IMager/imager.php";
-
+	include "dblink.php";
+	
 	$Brand = $_POST['Brand'];
 	$email = $_POST['email'];	
 	$name = $_POST['name'];
@@ -77,7 +78,7 @@
 			$file = $_FILES['file']['tmp_name'];
 			$content = addslashes(file_get_contents($file));
 
-			$sql = "INSERT INTO payments_images (sup_id,img_content) VALUES('$sup_id', '$content')";
+			$sql = "INSERT INTO suppiers_image (sup_id,img_content) VALUES('$sup_id', '$content')";
 			
 		}
 	}
