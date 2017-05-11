@@ -186,7 +186,7 @@ while($sup = mysqli_fetch_array($result)) {
     <td><?php echo $sup['sup_accnum']; ?></td>
     <td>
      		<button class="edit" data-id="<?php echo $sup['sup_id']; ?>">แก้ไข</button>
-     		<!--<button class="del" data-id="<?php echo $sup['sup_id']; ?>">ลบ</button>-->
+     		
     </td>
 </tr>
 <?php

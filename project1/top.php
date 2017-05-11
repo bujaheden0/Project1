@@ -7,9 +7,9 @@
 <div id="nav-container">
 <nav>
 <a href="product.php">รายการสินค้า</a>
-<a href="supplier.php">ผู้จัดส่งสินค้า</a>
-<a href="payment.php">แจ้งการโอนเงิน</a>
-<a href="transfer.php">รายการโอน</a>
+<a href="supplier.php">ข้อมูลส่วนตัว</a>
+<a href="payment.php">ส่งของ</a>
+<a href="transfer.php">รายรับ</a>
 <!--<a href="../OnlineStore/">ไปที่ร้านค้า</a>-->
 </nav>
 </div>

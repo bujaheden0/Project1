@@ -168,10 +168,12 @@ function ajaxSend(a, action) {
 <?php
 include "dblink.php";
 include "lib/pagination.php";
-
-$sql = "SELECT payments.*, customers.email
+/*SELECT payments.*, customers.email
  			FROM payments LEFT JOIN customers ON payments.cust_id = customers.cust_id 
- 			ORDER BY pay_id DESC";
+ 			ORDER BY pay_id DESC*/
+$sql = "SELECT * FROM order_details WHERE pro_id IN (SELECT pro_id
+                FROM products
+               WHERE sup_id = '$sup_id')";
 $result = page_query($link, $sql, 20);
 $first = page_start_row();
 $last = page_stop_row();
@@ -189,24 +191,22 @@ if($total == 0) {
 while($pay = mysqli_fetch_array($result)) {
 	$class = 'enable';
 	$img_pay = "images/no.png";
-	if($pay['confirm']=='yes') {
+	if($pay['delivery']=='yes') {
 		$class = 'disable';
 		$img_pay = "images/yes.png";
 	}
 ?>
 <tr>
 	<td><?php echo $pay['order_id'];; ?></td>
-    <td><?php echo $pay['bank']; ?></td>
-    <td><?php echo $pay['location']; ?></td>
-    <td><?php echo $pay['amount']; ?></td>
-    <td><?php echo $pay['transfer_date']; ?></td>
-    <td><a href="mailto:<?php echo $pay['email']; ?>"><?php echo $pay['email']; ?></a></td>
+    <td><?php echo $pay['pro_id']; ?></td>
+    <td><?php echo $pay['item_id']; ?></td>
+
     <td>
     		<img src="<?php echo $img_pay; ?>">
     		<a href="#" class="<?php echo $class; ?>" 
             		data-id="<?php echo $pay['pay_id']; ?>" 
-            		data-order="<?php echo $pay['order_id']; ?>">ได้รับแล้ว</a>
-     		<a href="#" class="delete" data-id="<?php echo $pay['pay_id']; ?>">ลบ</a>
+            		data-order="<?php echo $pay['order_id']; ?>">ส่งของแล้ว</a>
+     		<!--<a href="#" class="delete" data-id="<?php echo $pay['pay_id']; ?>">ลบ</a>-->
     </td>
 </tr>
 <?php

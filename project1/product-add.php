@@ -1,6 +1,6 @@
 <?php
 sleep(1);
-include "check-login.php";
+//include "check-login.php";
 if(!$_POST) {
 	exit;
 }
@@ -10,10 +10,11 @@ $name = $_POST['pro_name'];
 $detail = $_POST['detail'];
 $price = $_POST['price'];
 $quantity = $_POST['quantity'];
+$quantity_cur = $_POST['quantity'];
 $cat = $_POST['category'];
 $sup = $_POST['supplier'];
 $sql = "REPLACE INTO products VALUES(
- 			'', '$cat', '$sup', '$name', '$detail', '$price', '$quantity')";
+ 			'', '$cat', '$sup', '$name', '$detail', '$price', '$quantity', '$quantity_cur')";
 mysqli_query($link, $sql);
 	
 $pro_id = mysqli_insert_id($link);

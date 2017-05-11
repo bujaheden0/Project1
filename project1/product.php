@@ -387,7 +387,7 @@ while($pro = mysqli_fetch_array($result)) {
 ?>
 <div id="dialog">
 <form id="form-pro">
-<input type="text" name="pro_name" id="pro-name" placeholder="ชื่อสินค้า"><br>
+<input type="text" name="pro_name" id="pro-name" placeholder="ชื่อสินค้า1"><br>
 <textarea name="detail" id="detail" placeholder="รายละเอียดของสินค้า"></textarea><br>
 <input type="text" name="price" id="price" placeholder="ราคาต่อหน่วย">
 <input type="text" name="quantity" id="quantity" placeholder="จำนวนสินค้า"><br>
