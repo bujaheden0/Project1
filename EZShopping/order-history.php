@@ -45,7 +45,8 @@
 		width: 100px;	
 	}
 	td:nth-child(7) {
-		width: 200px;	
+		width: 200px;
+
 	}
 	table th {
 		background: green;
@@ -147,9 +148,7 @@ $(function() {
 		ajaxSend($(this), 'update');
 	});
 
-	$('button').click(function() {
-		var id = $(this).attr('data-id');
-	});
+	
 });
 
 
@@ -295,6 +294,7 @@ if(isset($_SESSION['user'])){
 						$id = $order['pro_id'];
 						$img_delivery = "images/no.png";
 						$img_recieve = "images/no.png";
+						$img_rating = "images/no.png";
 						$class = 'enable';
 						if($order['delivery'] == 'yes'){
 							$img_delivery = "images/yes.png";
@@ -319,19 +319,27 @@ if(isset($_SESSION['user'])){
    						?>
    						<button class="<?php echo $class; ?> btn btn-primary" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
 
-   						<td><span class="star-rate">
-        
-        <input type="radio" name="star_<?php echo $id; ?>" value="1"  checked>1
-        <input type="radio" name="star_<?php echo $id; ?>" value="2">2
-        <input type="radio" name="star_<?php echo $id; ?>" value="3">3
-        <input type="radio" name="star_<?php echo $id; ?>" value="4">4
-        <input type="radio" name="star_<?php echo $id; ?>" value="5">5
-        <button class="bt-rate" data-id="<?php echo $id; ?>">Rate</button>
-      </span></td>
+   						
    					<?php
    				    }
-   				    
    					?>
+   					<td>
+   						<?php
+   						if($order['recieve'] == "yes"){
+   						?>
+   						<span class="star-rate">
+        			
+        			<input type="radio" name="star_<?php echo $id; ?>" value="1"  checked>1
+        			<input type="radio" name="star_<?php echo $id; ?>" value="2">2
+        			<input type="radio" name="star_<?php echo $id; ?>" value="3">3
+        			<input type="radio" name="star_<?php echo $id; ?>" value="4">4
+        			<input type="radio" name="star_<?php echo $id; ?>" value="5">5
+        			<button class="bt-rate" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>">Rate</button>
+      </span>
+   						<?php
+   						}
+   						?>
+   					</td>
    					
 				</tr>
 				<?php
