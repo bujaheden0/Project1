@@ -26,8 +26,7 @@ if($_POST['action'] == "edit") {
 	$sub_accnum = $_POST['sub_accnum'];
 	
 	$id = $_POST['sup_id'];
-	$sql = "UPDATE suppliers SET sup_name = '$name', address = '$address', phone = '$phone', sub_accname = '$sub_accname', sub_accnum = '$sub_accnum'
-	 			WHERE sup_id = $id";
+	$sql = "UPDATE suppliers SET sup_name = '$name', address = '$address', phone = '$phone', sub_accname = '$sub_accname', sub_accnum = '$sub_accnum' WHERE sup_id = '$id'";
 	mysqli_query($link, $sql);
 }
 if($_POST['action'] == "del") {

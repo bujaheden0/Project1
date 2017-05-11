@@ -13,8 +13,8 @@ $quantity = $_POST['quantity'];
 $quantity_cur = $_POST['quantity'];
 $cat = $_POST['category'];
 $sup = $_POST['supplier'];
-$sql = "REPLACE INTO products VALUES(
- 			'', '$cat', '$sup', '$name', '$detail', '$price', '$quantity', '$quantity_cur')";
+$sql = "REPLACE INTO products (cat_id,sup_id,pro_name,detail,price,quantity,quantity_current)
+VALUES('$cat', '$sup', '$name', '$detail', '$price', '$quantity', '$quantity_cur')";
 mysqli_query($link, $sql);
 	
 $pro_id = mysqli_insert_id($link);

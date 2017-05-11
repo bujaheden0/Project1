@@ -32,14 +32,6 @@
 	</div><!--middle-bar-->
 <?php
 
-/*if($_FILES["images"]["name"] != "") {
-            $file_name = $_FILES["images"]["name"];
-            $file_ext = substr($file_name, strripos($file_name, '.'));
-            $equipmentImage = date("Ymdhis").$file_ext;
-            if(move_uploaded_file($_FILES["images"]["tmp_name"],"image/".$equipmentImage)) { 
-            }
-        }*/
-
 	include "lib/IMager/imager.php";
 	include "dblink.php";
 	

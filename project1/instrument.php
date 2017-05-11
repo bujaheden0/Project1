@@ -35,10 +35,50 @@ function confirmDelete(){
 		</div><!--middle-menu-bar-->
 	</div><!--middle-bar-->
 </div><!--Header-->
+<?php
+if($_POST) {
+	
+	
+
+	include "lib/IMager/imager.php";
+	include "dblink.php";
+	
+	$Brand = $_POST['Brand'];
+	$email = $_POST['email'];	
+	$name = $_POST['name'];
+	$password = $_POST['password'];
+	$tel = $_POST['tel'];
+	$accname = $_POST['accname'];
+	$accnum = $_POST['accnum'];
+	$address = $_POST['address'];
+	$status = "no";
+	
+
+	$connect = mysqli_connect("localhost","root","","store");	
+	mysqli_set_charset($connect, "utf8");
+
+	$sql = "INSERT INTO suppliers (sub_email,sup_name,sup_password,phone,sub_accname,sup_accnum,sub_brand,address,status) VALUES ('$email','$name','$password','$tel','$accname','$accnum','$Brand','$address','$status')";
+	mysqli_query($connect,$sql);
+
+	$sup_id = mysqli_insert_id($connect);
+		if(is_uploaded_file($_FILES['file']['tmp_name'])){
+		if($_FILES['file']['error'] != 0) {
+			$err = "กรุณาเลือกไฟล์รูปภาพ";
+		}
+		else{
+			$file = $_FILES['file']['tmp_name'];
+			$content = addslashes(file_get_contents($file));
+
+			$sql = "INSERT INTO suppiers_image (sup_id,img_content) VALUES('$sup_id', '$content')";
+			
+		}
+	}
+	
+}?>
 <div class="contianer">
 <center><FONT Size="30">สมัครสมาชิก</FONT></center>
 </h3>
-	<form method="post" enctype = "multipart/form-data" action="instrument_add.php">
+	<form method="post" enctype = "multipart/form-data">
 	<center>
 		<p>อีเมล: <input type="text" name="email"></input><br><br></p>
 		<p>ชื่อ-นามสกุล: <input type="text" name="name"></input><br><br></p>
@@ -61,5 +101,6 @@ function confirmDelete(){
 		
 	</form>
 	</div>
+
 </body>
 </html>
