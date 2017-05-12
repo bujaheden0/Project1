@@ -9,6 +9,7 @@
 <a href="product.php">รายการสินค้า</a>
 <a href="supplier.php">ข้อมูลส่วนตัว</a>
 <a href="payment.php">ส่งของ</a>
+<a href="order-tran.php">แจ้งรับเงิน</a>
 <a href="transfer.php">รายรับ</a>
 <!--<a href="../OnlineStore/">ไปที่ร้านค้า</a>-->
 </nav>
