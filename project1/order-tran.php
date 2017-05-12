@@ -155,7 +155,7 @@ function ajaxSend(dataJSON) {
 include "dblink.php";
 include "lib/pagination.php";
 
-$sql = "SELECT order_tran.*,orders.*,customers.*,products.*
+$sql = "SELECT order_tran.*,orders.*,customers.*,products.pro_name
 FROM order_tran
 LEFT JOIN orders ON order_tran.order_id = orders.order_id 
 LEFT JOIN order_details ON order_details.order_id = orders.order_id 
@@ -175,8 +175,8 @@ if($total == 0) {
 <caption>
 	<?php 	echo "รายการโอนเงิน  $first - $last จากทั้งหมด $total"; ?>
 </caption>
-<colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"><col id="c7"></colgroup>
-<tr><th>ลำดับ</th><th>วันที่พักบัญชี</th><th>บัญชีผู้รับ</th><th>ชื่อ</th><th>จำนวนเงิน</th><th>สถานะของรายการ</th><th>คำสั่ง</th></tr>
+<colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"></colgroup>
+<tr><th>ลำดับ</th><th>วันที่ซื้อ</th><th>ชื่อสินค้า</th><th>จำนวนเงิน</th><th>จำนวนชิ้น</th><th>ชื่อผู้ซื้อ</th></tr>
 <?php
 $row = $first;
 $index = 0;
@@ -187,14 +187,12 @@ while($sup = mysqli_fetch_array($result)) {
 ?>
 <tr>
 	<td><?php echo $row; ?></td>
-    <td><?php echo $sup['name']; ?></td>
-    <td><?php echo $sup['order_id']; ?></td>
+    <td><?php echo $sup['order_date']; ?></td>
+    <td><?php echo $sup['pro_name']; ?></td>
     <td><?php echo $sup['price']; ?></td>
     <td><?php echo $sup['quantity']; ?></td>
-    <td>
-     		<button class="edit" data-id="<?php echo $sup['ort_id']; ?> ">แก้ไข</button>
-     		<button class="del" data-id="<?php echo $sup['ort_id']; ?>">ลบ</button>
-    </td>
+    <td><?php echo $sup['name']; ?></td>
+    
 </tr>
 <?php
 	$row++;
