@@ -144,12 +144,8 @@ $(function() {
 	$('button#index').click(function() {
 		location.href = "main.php";
 	});
-	$('button').click(function() {
+	$('button.enable').click(function() {
 		ajaxSend($(this), 'update');
-	});
-
-	$('button').click(function() {
-		OrderTran($(this), 'insert');
 	});
 
 	$('button.bt-rate').click(function() {
@@ -159,17 +155,6 @@ $(function() {
 	
 });
 
-function OrderTran(a, action) {
-	var proid = a.attr('data-id');
-	var orderID = a.attr('data-order'); 
-	var d = {'action':action, 'pro_id':proid, 'order_id':orderID};
-	$.ajax({
-		url: 'order-tran.php',
-		data: d,
-		dataType: 'html',
-		type: 'post',
-	})	;
-}
 function ajaxSend(a, action) {
 	var proid = a.attr('data-id');
 	var orderID = a.attr('data-order'); 
