@@ -148,6 +148,10 @@ $(function() {
 		ajaxSend($(this), 'update');
 	});
 
+	$('button').click(function() {
+		OrderTran($(this), 'insert');
+	});
+
 	$('button.bt-rate').click(function() {
 		ajaxSend1($(this), 'updaterating');
 	});
@@ -155,7 +159,17 @@ $(function() {
 	
 });
 
-
+function OrderTran(a, action) {
+	var proid = a.attr('data-id');
+	var orderID = a.attr('data-order'); 
+	var d = {'action':action, 'pro_id':proid, 'order_id':orderID};
+	$.ajax({
+		url: 'order-tran.php',
+		data: d,
+		dataType: 'html',
+		type: 'post',
+	})	;
+}
 function ajaxSend(a, action) {
 	var proid = a.attr('data-id');
 	var orderID = a.attr('data-order'); 
@@ -271,6 +285,7 @@ if($_POST['email']) {
 		}  //end while
 	}
 }
+
 if(isset($_SESSION['user'])){
 		$sql = "SELECT * FROM customers WHERE email = '$email' AND password = '$pswd'";
 		$r = mysqli_query($link, $sql);
@@ -339,7 +354,6 @@ if(isset($_SESSION['user'])){
    					if($data['paid'] == "yes" && $order['delivery'] == "yes"){
    						?>
    						<button class="<?php echo $class; ?> btn btn-primary" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
-
    						
    					<?php
    				    }
