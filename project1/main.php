@@ -130,7 +130,7 @@ function cartCount() {  //ฟังก์ชั่นสำหรับอ่า
 		<div class="middle-bar">
 		<div class="middle-menu-bar">
 			<div class="brand">
-			<a href="#">EZShopping.com</a>
+			<a href="../EZShopping/main.php">EZShopping.com</a>
 			</div>
 			<div class="search">
 			<form class="navbar-form">
