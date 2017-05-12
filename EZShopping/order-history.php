@@ -148,14 +148,15 @@ $(function() {
 		ajaxSend($(this), 'update');
 	});
 
+	$('button.bt-rate').click(function() {
+		ajaxSend1($(this), 'updaterating');
+	});
+
 	
 });
 
 
 function ajaxSend(a, action) {
-	if(!confirm('ยืนยันการกระทำนี้')) {
-		return;
-	}
 	var proid = a.attr('data-id');
 	var orderID = a.attr('data-order'); 
 	var d = {'action':action, 'pro_id':proid, 'order_id':orderID};
@@ -175,6 +176,28 @@ function ajaxSend(a, action) {
 		}
 	})	;
 }
+
+function ajaxSend1(a, action) {
+	var proid = a.attr('data-id');
+	var orderID = a.attr('data-order'); 
+	var d = {'action':action, 'pro_id':proid, 'order_id':orderID};
+	$.ajax({
+		url: 'rating-action.php',
+		data: d,
+		dataType: 'html',
+		type: 'post',
+		beforeSend: function() {
+			$.blockUI({message:'<h3>กำลังส่งข้อมูล...</h3>'});
+		},
+		success: function(result) {
+			location.reload();
+		},
+		complete: function() {
+			$.unblockUI();
+		}
+	})	;
+}
+
 </script>
 <div id="content">
 <div class="header-history">
@@ -294,7 +317,6 @@ if(isset($_SESSION['user'])){
 						$id = $order['pro_id'];
 						$img_delivery = "images/no.png";
 						$img_recieve = "images/no.png";
-						$img_rating = "images/no.png";
 						$class = 'enable';
 						if($order['delivery'] == 'yes'){
 							$img_delivery = "images/yes.png";
@@ -304,7 +326,6 @@ if(isset($_SESSION['user'])){
 							$img_recieve = "images/yes.png";
 							
 						}
-
 				?>
 				<tr>
     				<td><?php echo $order['pro_name']; ?></td>
@@ -334,7 +355,7 @@ if(isset($_SESSION['user'])){
         			<input type="radio" name="star_<?php echo $id; ?>" value="3">3
         			<input type="radio" name="star_<?php echo $id; ?>" value="4">4
         			<input type="radio" name="star_<?php echo $id; ?>" value="5">5
-        			<button class="bt-rate" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>">Rate</button>
+        			<button class="bt-rate" type="button" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>"<?php if($order['rating'] == "yes") {echo "disabled";}?>>Rate</button>
       </span>
    						<?php
    						}

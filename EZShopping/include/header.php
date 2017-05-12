@@ -102,7 +102,7 @@ $(function() {
 	
 	cartCount(); //ให้อ่านข้อมูลในรถเข็นมาแสดงทันทีที่เปิดเพจ (อาจเปิดไปเพจอื่นแล้วกลับมาที่หน้าหลักอีก)
 	$('button.bt-rate').click(function() {
-		var pro_id = $(this).attr('data-id');	
+		var pro_id = $(this).attr('data-id');
 		var num_star = $(this).parent().find(':radio:checked').val();
 		
 		$.ajax({

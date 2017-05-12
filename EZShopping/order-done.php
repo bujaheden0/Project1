@@ -143,7 +143,7 @@ while($cart = mysqli_fetch_array($r)) {
 	$pro_id = $cart['pro_id'];
 	$quan = $cart['quantity'];
 	$attr = $cart['attribute'];
-	$sql = "INSERT INTO order_details (order_id,pro_id,attribute,quantity,delivery,recieve) VALUES('$order_id', '$pro_id', '$attr', '$quan','no','no')";
+	$sql = "INSERT INTO order_details (order_id,pro_id,attribute,quantity,delivery,recieve,rating) VALUES('$order_id', '$pro_id', '$attr', '$quan','no','no','no')";
 	mysqli_query($link, $sql);
 }
 //หลังจากคัดลอกข้อมูลของลูกค้ารายนั้นจากตาราง cart ไปจัดเก็บแล้ว ก็ลบข้อมูลในตาราง cart ทิ้ง
