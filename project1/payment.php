@@ -173,7 +173,7 @@ include "lib/pagination.php";
  			ORDER BY pay_id DESC*/
 $sql = "SELECT order_details.*,orders.*,customers.*,products.*
 FROM orders LEFT JOIN order_details ON order_details.order_id = orders.order_id RIGHT JOIN customers ON orders.cust_id = customers.cust_id RIGHT JOIN products on order_details.pro_id = products.pro_id
-WHERE order_details.pro_id IN (SELECT products.pro_id FROM products WHERE sup_id = 1)
+WHERE order_details.pro_id IN (SELECT products.pro_id FROM products WHERE sup_id = '$sup_id')
 ORDER BY item_id";
 $result = page_query($link, $sql, 20);
 $first = page_start_row();

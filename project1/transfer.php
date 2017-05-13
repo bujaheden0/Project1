@@ -155,7 +155,7 @@ function ajaxSend(dataJSON) {
 include "dblink.php";
 include "lib/pagination.php";
 
-$sql = "SELECT * FROM `transfer` WHERE sup_id = 1";
+$sql = "SELECT * FROM `transfer` WHERE sup_id = '$sup_id'";
 $result = page_query($link, $sql, 20);
 $first = page_start_row();
 $last = page_stop_row();
