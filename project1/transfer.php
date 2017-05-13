@@ -155,7 +155,7 @@ function ajaxSend(dataJSON) {
 include "dblink.php";
 include "lib/pagination.php";
 
-$sql = "SELECT * FROM transfer";
+$sql = "SELECT * FROM `transfer` WHERE sup_id = 1";
 $result = page_query($link, $sql, 20);
 $first = page_start_row();
 $last = page_stop_row();
@@ -168,8 +168,8 @@ if($total == 0) {
 <caption>
 	<?php 	echo "รายการโอนเงิน  $first - $last จากทั้งหมด $total"; ?>
 </caption>
-<colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"><col id="c7"></colgroup>
-<tr><th>ลำดับ</th><th>วันที่พักบัญชี</th><th>บัญชีผู้รับ</th><th>ชื่อ</th><th>จำนวนเงิน</th><th>สถานะของรายการ</th><th>คำสั่ง</th></tr>
+<colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"></colgroup>
+<tr><th>ลำดับ</th><th>วันที่พักบัญชี</th><th>บัญชีผู้รับ</th><th>ชื่อ</th><th>จำนวนเงิน</th><th>สถานะการโอน</th></tr>
 <?php
 $row = $first;
 $index = 0;
@@ -185,10 +185,7 @@ while($sup = mysqli_fetch_array($result)) {
     <td><?php echo $sup['name']; ?></td>
     <td><?php echo $sup['tran_amount']; ?></td>
     <td><?php echo $sup['tran_status']; ?></td>
-    <td>
-     		<button class="edit" data-id="<?php echo $sup['tran_id']; ?> ">แก้ไข</button>
-     		<button class="del" data-id="<?php echo $sup['tran_id']; ?>">ลบ</button>
-    </td>
+    
 </tr>
 <?php
 	$row++;

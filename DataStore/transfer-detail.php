@@ -151,10 +151,10 @@ while($sup = mysqli_fetch_array($result)) {
 ?>
 <tr>
 	<td><?php echo $row; ?></td>
-    <td><?php echo $sup['ort_name']; ?></td>
-    <td><?php echo $sup['ort_price']; ?></td>
+    <td><?php echo $sup['name']; ?></td>
+    <td><?php echo $sup['price']; ?></td>
     <?php
-    $sum += $sup['ort_price'];
+    $sum += $sup['price'];
     ?>
 </tr>
 <?php
@@ -167,7 +167,29 @@ while($sup = mysqli_fetch_array($result)) {
 <td><?php echo $sum*0.95 ;?> บาท<h5><font color="red">  ( จากเดิม <?php echo $sum;?> บาท )</font></h5></td>
 </tr>
 </table><br>
+<?php
+	include "dblink.php";
+	if($_POST){
+		$sql = "UPDATE transfer SET tran_status = 'yes' WHERE tran_id = '$cust_id'";
+		mysqli_query($link,$sql);
+			$tran_id = mysqli_insert_id($link);
+			if(is_uploaded_file($_FILES['file']['tmp_name'])){
+			if($_FILES['file']['error'] != 0) {
+				$err = "กรุณาเลือกไฟล์รูปภาพ";
+			}
+			else{
+				$file = $_FILES['file']['tmp_name'];
+				$content = addslashes(file_get_contents($file));
 
+				$sql = "INSERT INTO transfer_images (tran_id,img_content) VALUES('$cust_id, '$content')";
+				mysqli_query($link,$sql);
+				$tran_id = mysqli_insert_id($link);
+			}
+		}
+	mysqli_close($link);
+	header("Location: transfer.php");
+	}
+?>
 <center>
 <form  method="post" enctype="multipart/form-data">
 	<input type="file" name="file" id="file"><br>
