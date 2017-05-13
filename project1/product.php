@@ -218,7 +218,7 @@ function showDialog() {
 	});	
 }
 
-function ajaxSend(dataJSON) {
+/*function ajaxSend(dataJSON) {
 	$.ajax({
 		url: 'product-add.php',
 		data: dataJSON,
@@ -236,7 +236,7 @@ function ajaxSend(dataJSON) {
 	});
 }
 
-function uploadFile() {
+/*function uploadFile() {
 	if(fileNo > fileCount) {
 		return;
 	}
@@ -262,7 +262,7 @@ function uploadFile() {
 			}
 		}			
 	});
-}
+}*/
 </script>
 </head>
 
@@ -386,7 +386,8 @@ while($pro = mysqli_fetch_array($result)) {
 	}
 ?>
 <div id="dialog">
-<form id="form-pro">
+<form id="form-pro" method="post" enctype="multipart/form-data" action="product-add.php">
+<input type="hidden" name="pro_id" value="<?php echo $pro_id;?>">
 <input type="text" name="pro_name" id="pro-name" placeholder="ชื่อสินค้า1"><br>
 <textarea name="detail" id="detail" placeholder="รายละเอียดของสินค้า"></textarea><br>
 <input type="text" name="price" id="price" placeholder="ราคาต่อหน่วย">
@@ -410,39 +411,21 @@ while($pro = mysqli_fetch_array($result)) {
 	?>
 </select>
 <br><br>
-<span id="propname">คุณลักษณะสินค้า (เช่น สี)</span>
+<!--<span id="propname">คุณลักษณะสินค้า (เช่น สี)</span>
 <span id="propval">ค่าของคุณลักษณะ (คั่นด้วย ","  เช่น ฟ้า, ขาว, แดง, ดำ)</span><br>
 <input type="text" name="attr_name[]" class="attr-name" placeholder="ชื่อคุณลักษณะ (1)">
 <input type="text" name="attr_value[]"  class="attr-value" placeholder="ค่าของคุณลักษณะ (1)"><br>
 <input type="text" name="attr_name[]" class="attr-name" placeholder="ชื่อคุณลักษณะ (2)">
 <input type="text" name="attr_value[]" class="attr-value" placeholder="ค่าของคุณลักษณะ (2)"><br>
 <input type="text" name="attr_name[]" class="attr-name" placeholder="ชื่อคุณลักษณะ (3)">
-<input type="text" name="attr_value[]" class="attr-value" placeholder="ค่าของคุณลักษณะ (3)"><br>
+<input type="text" name="attr_value[]" class="attr-value" placeholder="ค่าของคุณลักษณะ (3)"><br>-->
+
+<br>
+	ภาพสินค้า #1: <input type="file" name="file" id="file">
+    <button type="submit" id="bt-send">ส่งข้อมูล</button> (ภาพสินค้าจะใช้ภาพแรกเป็นภาพหลัก)
 </form>
 <br>
 
-<form id="form-img1" method="post" action="product-image.php" enctype="multipart/form-data">
-	ภาพสินค้า #1: <input type="file" name="file" id="file1">
-    <button type="submit" id="bt-upload1" class="hidden">อัปโหลดภาพ</button>
-</form>
-<form id="form-img2" method="post" action="product-image.php" enctype="multipart/form-data">
-	ภาพสินค้า #2: <input type="file" name="file" id="file2">
-    <button type="submit" id="bt-upload2" class="hidden">อัปโหลดภาพ</button>
-</form>
-<form id="form-img3" method="post" action="product-image.php" enctype="multipart/form-data">
-	ภาพสินค้า #3: <input type="file" name="file" id="file3">
-    <button type="submit" id="bt-upload3" class="hidden">อัปโหลดภาพ</button>
-</form>
-<form id="form-img4" method="post" action="product-image.php" enctype="multipart/form-data">
-	ภาพสินค้า #4: <input type="file" name="file" id="file4">
-    <button type="submit" id="bt-upload4" class="hidden">อัปโหลดภาพ</button>
-</form>
-<form id="form-img5" method="post" action="product-image.php" enctype="multipart/form-data">
-	ภาพสินค้า #5: <input type="file" name="file" id="file5">
-    <button type="submit" id="bt-upload5" class="hidden">อัปโหลดภาพ</button>
-</form>
-<br>
-<button type="button" id="bt-send">ส่งข้อมูล</button> (ภาพสินค้าจะใช้ภาพแรกเป็นภาพหลัก)
 </div>
 </article>
 </body>
