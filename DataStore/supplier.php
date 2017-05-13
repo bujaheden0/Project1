@@ -30,6 +30,10 @@ include "check-login.php";
 	#c6 {
 		width: 110px;
 	}
+	
+	#c7 {
+		width: 150px;
+	}
 	table th {
 		background: green;
 		color: yellow;
@@ -82,6 +86,9 @@ include "check-login.php";
 <script src="js/jquery.blockUI.js"> </script>
 <script>
 $(function() {
+	$('a.enable').click(function() {
+		ajaxSend($(this), 'confirm');
+	});
 	$('#add-sup').click(function() {  //คลิกปุ่ม "เพิ่มผู้จัดส่งสินค้า"
 		$('#form-sup')[0].reset();
 		$('#action').val('add');
@@ -99,6 +106,7 @@ $(function() {
 		$('#address').val(tr.children(':eq(2)').text());
 		$('#phone').val(tr.children(':eq(3)').text());
 		$('#contact-name').val(tr.children(':eq(4)').text());
+		$('#website-name').val(tr.children(':eq(5)').text());
 		
 		$('#website').val(tr.children(':eq(1)').find('a').attr('href')); //อ่านค่าแอตทริบิวต์ href ของลิงก์ที่อยู่ในเซลล์ที่ 2
 		$('#sup-id').val($(this).attr('data-id'));
@@ -124,10 +132,12 @@ function showDialog() {
 		position: { my: "center top", at: "center top", of: $('nav')}
 	});	
 }
-function ajaxSend(dataJSON) {
+function ajaxSend(a,action) {
+	var supID = a.attr('data-id');        
+	var d = {'action':action, 'sup_id':supID};
 	$.ajax({
 		url: 'supplier-action.php',
-		data: dataJSON,
+		data: d,
 		type: 'post',
 		dataType:"html",
 		beforeSend: function() {
@@ -162,25 +172,45 @@ if($total == 0) {
 	<?php 	echo "ผู้จัดส่งสินค้าลำดับที่  $first - $last จากทั้งหมด $total"; ?>
 	<button id="add-sup">เพิ่มผู้จัดส่งสินค้า</button>
 </caption>
-<colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"></colgroup>
-<tr><th>ลำดับ</th><th>ชื่อผู้จัดส่งสินค้า</th><th>ที่อยู่</th><th>โทร</th><th>บุคคลในการติดต่อ</th><th>คำสั่ง</th></tr>
+<colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"><col id="c7"></colgroup>
+<tr><th>ลำดับ</th><th>ชื่อผู้จัดส่งสินค้า</th><th>ที่อยู่</th><th>โทร</th><th>ธนาคาร</th><th>เลขบัญชี</th><th>ฝากขาย</th></tr>
 <?php
 $row = $first;
+
 while($sup = mysqli_fetch_array($result)) {
 	if(!empty($sup['website'])) {
 		$sup['sup_name'] = "<a href=\"{$sup['website']}\" target=\"_blank\">{$sup['sup_name']}</a>";
 	}
+	$class = 'enable';
+	$img_pay = "images/no.png";
+	if($sup['status']=='yes') {
+		$class = 'disable';
+		$img_pay = "images/yes.png";
+	
+}
 ?>
 <tr>
 	<td><?php echo $row; ?></td>
     <td><?php echo $sup['sup_name']; ?></td>
     <td><?php echo $sup['address']; ?></td>
     <td><?php echo $sup['phone']; ?></td>
-    <td><?php echo $sup['contact_name']; ?></td>
+    <td><?php echo $sup['sub_brand']; ?></td>
+    <td><?php echo $sup['sup_accnum']; ?></td>
     <td>
+    		<img src="<?php echo $img_pay; ?>">
+    		<a href="#" class="<?php echo $class; ?>" 
+            		data-id="<?php echo $sup['sup_id']; ?>" >อนุมัติ</a>
+          <!--  <a href="#" class="more-detail" data-id="<?php echo $sup['pay_id']; ?> "data-toggle="modal" >ดูรูป</a>-->
+            <?php
+            //echo "<button class=\"more-detail btn btn-default\" data-id=$sup['pay_id'];>BUY</button>"; ?>
+     		<a href="#" class="delete" data-id="<?php echo $sup['pay_id']; ?>">ลบ</a>
+    </td>
+    
+    <!--<td>
      		<button class="edit" data-id="<?php echo $sup['sup_id']; ?>">แก้ไข</button>
      		<button class="del" data-id="<?php echo $sup['sup_id']; ?>">ลบ</button>
     </td>
+    -->
 </tr>
 <?php
 	$row++;
@@ -202,8 +232,9 @@ if(page_total() > 1) { 	 //ให้แสดงหมายเลขเพจ�
 <input type="text" name="sup_name" id="sup-name" placeholder="ชื่อบริษัทผู้จัดส่งสินค้า"><br>
 <textarea name="address" id="address" placeholder="ที่อยู่"></textarea><br>
 <input type="text" name="phone" id="phone" placeholder="โทร"><br>
-<input type="text" name="contact_name" id="contact-name" placeholder="บุคคลในการติดต่อ"><br>
-<input type="text" name="website" id="website" placeholder="เว็บไซต์"><br><br>
+<input type="text" name="contact_name" id="contact-name" placeholder="ธนาคาร"><br>
+<input type="text" name="website" id="website-name" placeholder="เลขบัญชี"><br>
+
 
 <button type="button" id="send">ส่งข้อมูล</button>
 </form>

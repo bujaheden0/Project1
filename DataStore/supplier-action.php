@@ -4,6 +4,14 @@ if(!$_POST) {
 	exit;
 }
 include "dblink.php";
+$action = $_POST['action'];
+if($action == "confirm") {
+	
+	$sup_id = $_POST['sup_id'];
+	
+	$sql = "UPDATE suppliers SET status = 'yes' WHERE sup_id = '$sup_id'";
+	mysqli_query($link, $sql);
+}
 if($_POST['action'] == "add") {
 	$name = $_POST['sup_name'];
 	$address = $_POST['address'];
