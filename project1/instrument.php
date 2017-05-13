@@ -35,67 +35,54 @@ function confirmDelete(){
 		</div><!--middle-menu-bar-->
 	</div><!--middle-bar-->
 </div><!--Header-->
+<div class="contianer">
 <?php
-if($_POST) {
-	
-	
-
-	include "lib/IMager/imager.php";
+if($_POST){
 	include "dblink.php";
-	
-	$Brand = $_POST['Brand'];
-	$email = $_POST['email'];	
+	$email = $_POST['email'];
 	$name = $_POST['name'];
 	$password = $_POST['password'];
 	$tel = $_POST['tel'];
 	$accname = $_POST['accname'];
 	$accnum = $_POST['accnum'];
 	$address = $_POST['address'];
+	$brand = $_POST['brand'];
 	$status = "no";
-	
 
-	$connect = mysqli_connect("localhost","root","","store");	
-	mysqli_set_charset($connect, "utf8");
-
-	$sql = "INSERT INTO suppliers (sub_email,sup_name,sup_password,phone,sub_accname,sup_accnum,sub_brand,address,status) VALUES ('$email','$name','$password','$tel','$accname','$accnum','$Brand','$address','$status')";
-	mysqli_query($connect,$sql);
-
-	$sup_id = mysqli_insert_id($connect);
-		if(is_uploaded_file($_FILES['file']['tmp_name'])){
-		if($_FILES['file']['error'] != 0) {
-			$err = "กรุณาเลือกไฟล์รูปภาพ";
-		}
-		else{
+	$sql = "INSERT INTO suppliers (sup_name,address,phone,sup_password,sub_accname,sub_email,sup_accnum,status,sub_brand) VALUES ('$name','$address','$phone','$password','$accname','$email','$accnum','$status','$brand')";
+	mysqli_query($link,$sql);
+	$sup_id = mysqli_insert_id($link);
+	if(is_uploaded_file($_FILES['file']['tmp_name'])){
 			$file = $_FILES['file']['tmp_name'];
 			$content = addslashes(file_get_contents($file));
-
-			$sql = "INSERT INTO suppiers_image (sup_id,img_content) VALUES('$sup_id', '$content')";
+			$sql = "INSERT INTO suppliers_images (sup_id,img_content) VALUES('$sup_id', '$content')";
+			mysqli_query($link,$sql);
 			
-		}
+		
 	}
-	
-}?>
-<div class="contianer">
+	mysqli_close($link);
+}
+?>
 <center><FONT Size="30">สมัครสมาชิก</FONT></center>
 </h3>
 	<form method="post" enctype = "multipart/form-data">
 	<center>
-		<p>อีเมล: <input type="text" name="email"></input><br><br></p>
+		<p>อีเมล: <input type="text" name="email" ></input><br><br></p>
 		<p>ชื่อ-นามสกุล: <input type="text" name="name"></input><br><br></p>
 		รหัสผ่าน: <input type="password" name="password"></input><br><br>
 		เบอร์โทร: <input type="text" name="tel"></input><br><br>
 		ชื่อบัญชี: <input type="text" name="accname"></input><br><br>
 		เลขบัญชี: <input type="text" name="accnum"></input><br><br>
 		ที่อยู่: <input type="text" name="address"></input><br><br>
-		ชื่อธนาคาร:	<select name= "Brand">
+		ชื่อธนาคาร:	<select name= "brand">
 					<option value = 'ธนาคารกรุงเทพ' >ธนาคารกรุงเทพ</option>	
 					<option value = 'ธนาคารไทยพาณิชย์' >ธนาคารไทยพาณิชย์</option>
 					<option value = 'ธนาคารกรุงไทย' >ธนาคารกรุงไทย</option>
 					<option value = 'ธนาคารออมสิน' >ธนาคารออมสิน</option>
 					<option value = 'ธนาคารกสิกรไทย' >ธนาคารกสิกรไทย</option>
 				</select><br><br> 	
-		รูป 	<input type="file" name="file" id="file"><br><br>
-		<button type="submit" class="btn btn-primary" onClick="return confirmDelete();">ยืนยัน</button> 
+		รูป :<input type="file" name="file" id="file"><br><br>
+		<button type="submit" class="btn btn-primary" >ยืนยัน</button> 
 		<button type="reset" class="btn btn-primary">reset</button>
 		</center>
 		

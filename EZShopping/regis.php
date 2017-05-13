@@ -70,7 +70,6 @@ if($_POST) {
 	$email = $_POST['email'];	
 	$pw1 = $_POST['pswd'];
 	$pw2 = $_POST['pswd2'];
-	$hashFormat = "$2y$10$";
 	$address = $_POST['address'];
 	$phone = $_POST['phone'];
 	$err = "";
