@@ -5,7 +5,7 @@
 include "dblink.php";
 	include "lib/IMGallery/imgallery-no-jquery.php";
 	$pay_id = $_POST['id'];//////////////////
-	$sql = "SELECT * FROM payments_images where pay_id = '$pay_id'";///////////////////////
+	$sql = "SELECT * FROM payments_images ";///////////////////////
 	$r = mysqli_query($link, $sql);
 	//นำเอารูปมาเก็บไว้ 
 if(mysqli_num_rows($r) > 0) {

@@ -181,9 +181,8 @@ while($sup = mysqli_fetch_array($result)) {
 				$file = $_FILES['file']['tmp_name'];
 				$content = addslashes(file_get_contents($file));
 
-				$sql = "INSERT INTO transfer_images (tran_id,img_content) VALUES('$cust_id, '$content')";
+				$sql = "INSERT INTO transfer_images (tran_id,img_content) VALUES('$cust_id', '$content')";
 				mysqli_query($link,$sql);
-				$tran_id = mysqli_insert_id($link);
 			}
 		}
 	mysqli_close($link);
@@ -191,6 +190,25 @@ while($sup = mysqli_fetch_array($result)) {
 	}
 ?>
 <center>
+<?php
+
+include "dblink.php";
+	include "lib/IMGallery/imgallery-no-jquery.php";
+	$pay_id = $_POST['id'];//////////////////
+	$sql = "SELECT * FROM transfer_images where tran_id = '$cust_id'";///////////////////////
+	$r = mysqli_query($link, $sql);
+	//นำเอารูปมาเก็บไว้ 
+if(mysqli_num_rows($r) > 0) {
+			echo "<br>";
+			$src = "read-image4.php?id=";//quary sql ไฟล์ read-image.php
+			gallery_thumb_width(250);
+			while($img =mysqli_fetch_array($r)) {
+				gallery_echo_img($src . $img['img_id']);
+			}
+		}
+	
+?>  
+
 <form  method="post" enctype="multipart/form-data">
 	<input type="file" name="file" id="file"><br>
 	<input type="submit" name="submit" value="Upload Image">
