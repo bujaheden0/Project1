@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 include "check-login.php";
  ?>
 <!doctype html>

@@ -89,6 +89,35 @@ $(function() {
 	$('a.enable').click(function() {
 		ajaxSend($(this), 'confirm');
 	});
+	$('a.delete').click(function() {
+		ajaxSend($(this),'delete');
+	});
+	$('a.more-detail, a.pro-name').click(function() {
+		var id = $(this).attr('data-id');
+		$.ajax({
+			type: 'post',
+			url: 'supplier-load.php',
+			data: {'id': id},
+			dataType: 'html',
+			beforeSend: function() {
+				$.blockUI({message:'<h3>กำลังโหลดข้อมูล...</h3>'});
+			},
+			success: function(result) {
+				$.unblockUI();
+				$('#dialog').html(result);
+				$('#dialog').dialog({
+					title: 'รายละเอียดสินค้า',
+					modal: true,
+					width: 'auto',
+					position: { my: "left+150 top", at: "click top+20px", of: window}
+				});
+				$('.ui-dialog-titlebar-close').focus();
+			},
+			complete: function() {
+				$.unblockUI();
+			}
+		});
+	});
 	$('#add-sup').click(function() {  //คลิกปุ่ม "เพิ่มผู้จัดส่งสินค้า"
 		$('#form-sup')[0].reset();
 		$('#action').val('add');
@@ -200,10 +229,10 @@ while($sup = mysqli_fetch_array($result)) {
     		<img src="<?php echo $img_pay; ?>">
     		<a href="#" class="<?php echo $class; ?>" 
             		data-id="<?php echo $sup['sup_id']; ?>" >อนุมัติ</a>
-          <!--  <a href="#" class="more-detail" data-id="<?php echo $sup['pay_id']; ?> "data-toggle="modal" >ดูรูป</a>-->
+          <a href="#" class="more-detail" data-id="<?php echo $sup['sup_id']; ?> "data-toggle="modal" >ดูรูป</a>
             <?php
-            //echo "<button class=\"more-detail btn btn-default\" data-id=$sup['pay_id'];>BUY</button>"; ?>
-     		<a href="#" class="delete" data-id="<?php echo $sup['pay_id']; ?>">ลบ</a>
+            //echo "<button class=\"more-detail btn btn-default\" data-id=$sup['sup_id'];>BUY</button>"; ?>
+     		<a href="#" class="delete" data-id="<?php echo $sup['sup_id']; ?>">ลบ</a>
     </td>
     
     <!--<td>

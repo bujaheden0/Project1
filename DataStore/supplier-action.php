@@ -5,13 +5,17 @@ if(!$_POST) {
 }
 include "dblink.php";
 $action = $_POST['action'];
+$sup_id = $_POST['sup_id'];
 if($action == "confirm") {
-	
-	$sup_id = $_POST['sup_id'];
-	
+
 	$sql = "UPDATE suppliers SET status = 'yes' WHERE sup_id = '$sup_id'";
 	mysqli_query($link, $sql);
 }
+else if($action == "delete") {
+	$sql = "DELETE FROM suppliers WHERE sup_id = '$sup_id '";
+	mysqli_query($link, $sql);	
+}
+/*
 if($_POST['action'] == "add") {
 	$name = $_POST['sup_name'];
 	$address = $_POST['address'];
@@ -39,5 +43,6 @@ if($_POST['action'] == "del") {
 	$sql = "DELETE FROM suppliers WHERE sup_id = $id";
 	mysqli_query($link, $sql);
 }
+*/
 mysqli_close($link);
 ?>
