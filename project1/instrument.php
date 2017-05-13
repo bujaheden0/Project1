@@ -67,6 +67,7 @@ if($_POST){
 </h3>
 	<form method="post" enctype = "multipart/form-data">
 	<center>
+		<input type="hidden" name="sup_id" value="<?php echo $sup_id;?>">
 		<p>อีเมล: <input type="text" name="email" ></input><br><br></p>
 		<p>ชื่อ-นามสกุล: <input type="text" name="name"></input><br><br></p>
 		รหัสผ่าน: <input type="password" name="password"></input><br><br>
