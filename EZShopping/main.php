@@ -15,7 +15,7 @@ if(isset($_COOKIE['email']) && isset($_COOKIE['pswd'])) {
 
 if($_POST) {
 	$email = $_POST['email'];
-	$pswd = $_POST['pswd'];
+	$pswd = md5($_POST['pswd']);
 
 	$sql = "SELECT * FROM customers
 		 		WHERE  email = '$email' AND password = '$pswd'";

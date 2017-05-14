@@ -317,8 +317,10 @@ if($_POST) {
 		echo '</div>';
 	}
 	else if($msg != "") {
+		echo "<center>";
 		echo "<h3>$msg</h3><br>";
-		echo '<a href="index.php">กลับหน้าหลัก</a>';
+		echo '<a href="main.php">กลับหน้าหลัก</a>';
+		echo "</center>";
 		mysqli_close($link);
 		exit('</body></html>');
 	}

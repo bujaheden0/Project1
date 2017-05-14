@@ -167,14 +167,13 @@ if($_POST) {
 	$item_id = $_POST['item_id'];
 	if($_POST['action'] == "save-change") {
 		$quan = intval($_POST['quantity']);
-		$sql = "SELECT cart.pro_id, products.quantity FROM cart 
+		$sql = "SELECT cart.pro_id, products.quantity ,products.quantity_current FROM cart 
 		 			LEFT JOIN products ON cart.pro_id = products.pro_id
 					WHERE cart.item_id = '$item_id'";
 		$r = mysqli_query($link, $sql);
 		$pro = mysqli_fetch_array($r);
 		$pro_id = $pro['pro_id'];
 		$quan_cur = $pro['quantity'] - $quan;
-		$quan_del = $pro['quantity'];
 		if($quan > $pro['quantity']) {
 			echo '<br><span class="out-of-stock">จำนวนสินค้าในสต๊อกมีไม่เพียงพอกับจำนวนที่ท่านระบุ</span>';
 		} 

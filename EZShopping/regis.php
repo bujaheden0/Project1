@@ -1,65 +1,8 @@
 <?php 
+include "include/header.php";
 session_start();  
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Index Html</title>
-	<link rel="stylesheet" type="text/css" href="Main.css">
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-</head>
-<body>
 
-<div class="header">
-	<div class="top-bar">
-		<div class="top-menu-bar">
-			<ul class="top-menu">
-				<li style="background: #708090;"><a href=""><i class="fa fa-handshake-o" aria-hidden="true"></i> ฝากขายสินค้า</a></li>
-			</ul>
-		</div><!--top-menu-bar-->
-	</div><!--top-bar-->
-		<div class="middle-bar">
-		<div class="middle-menu-bar">
-		<div class="brand">
-			<a href="main.php">EZShopping.com</a>
-			</div>
-		<div class="search">
-			<form class="navbar-form">
-        
-          <input type="text" class="form-control" style="width: 320px" placeholder="Search">
-        <span><button class="btn">Search</button></span>
-      </form>
-
-			</div>
-			<div class="cart">
-
-			<a href="" id="order"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-			<span id="cart-count"><B>0</B></span>
-			<button id="order">Cart</button>
-			</div>
-		</div><!--middle-menu-bar-->
-	</div><!--middle-bar-->
-	<div class="bottom-bar">
-	<div class="bottom-menu">
-			<ul>
-  			<li><a class="active" href="#home">Home</a></li>
-  			<li><a href="#news">News</a></li>
-  			<li><a href="#contact">Contact</a></li>
-  			<li><a href="#about">About</a></li>
-  			<li><a class="active" href="#home">Home</a></li>
-  			<li><a href="#news">News</a></li>
-  			<li><a href="#contact">Contact</a></li>
-  			<li><a href="#about">About</a></li>
-  			<li><a class="active" href="#home">Home</a></li>
-  			<li><a href="#news">News</a></li>
-  			<li><a href="#contact">Contact</a></li>
-  			<li><a href="#about">About</a></li>
-			</ul>
-		</div>
-		</div>
-</div><!--Header-->
 <div class="container">
 	<div class="register">
 <?php
@@ -100,6 +43,7 @@ if($_POST) {
 		echo '</div>';
 	}
 	else {	//ถ้าไม่มีข้อผิดพลาด
+		$pw1 = md5($pw1);
 		$rand = mt_rand(100000, 999999);	  //verify code
 		$sql = "INSERT INTO customers (email,password,name,address,phone,verify) 
 		VALUES('$email','$pw1','$name','$address','$phone','$rand')";
