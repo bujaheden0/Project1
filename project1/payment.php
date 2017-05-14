@@ -142,7 +142,7 @@ function ajaxSend(a, action) {
 	var payID = a.attr('data-id');
 	var orderID = a.attr('data-order');
 	var custID = a.attr('data-cust');
-	var d = {'action':action, 'order_id':orderID, 'pay_id':payID, 'cust_id':custID};
+	var d = {'action':action, 'order_id':orderID, 'pro_id':payID, 'cust_id':custID};
 	$.ajax({
 		url: 'payment-action.php',
 		data: d,
@@ -208,7 +208,7 @@ while($pay = mysqli_fetch_array($result)) {
     <td>
     		<img src="<?php echo $img_pay; ?>">
     		<a href="#" class="<?php echo $class; ?>" 
-            		data-id="<?php echo $pay['pay_id']; ?>" 
+            		data-id="<?php echo $pay['pro_id']; ?>" 
             		data-order="<?php echo $pay['order_id']; ?>">ส่งของแล้ว</a>
      		<!--<a href="#" class="delete" data-id="<?php echo $pay['pay_id']; ?>">ลบ</a>-->
     </td>
