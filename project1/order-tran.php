@@ -65,6 +65,13 @@ $sup_id = $_SESSION['sup_id'];
 	td a:hover {
 		color: red;
 	}
+	tr:last-child td {
+		border-top: solid 1px white;
+		background: powderblue !important;
+		padding: 5px;
+		font-weight: bold;
+		text-align: center !important;	
+	}
 	p#pagenum {
 		width: 90%;
 		text-align: center;
@@ -86,6 +93,7 @@ $sup_id = $_SESSION['sup_id'];
 		resize: none;
 		overflow: auto;
 	}
+
 </style>
 <link href="js/jquery-ui.min.css" rel="stylesheet">
 <script src="js/jquery-2.1.1.min.js"> </script>
@@ -200,6 +208,11 @@ while($sup = mysqli_fetch_array($result)) {
 	$sum += $sup['price'];
 }
 ?>
+	<tr>
+<td>รวม</td><td></td><td></td><td><?php echo $sum;?></td>
+<td>จำนวนเงินที่จะได้รับ <h5><font color="red">  ( ค่าธรรมเนียม 5% จากเดิม </font></h5></td>
+<td><?php echo $sum*0.95 ;?> บาท<h5><font color="red">  <?php echo $sum;?> บาท )</font></h5></td>
+</tr>
 </table>
 
 
@@ -231,14 +244,19 @@ $format="d/m/y H:i a";
 $str=date($format,$th);
 $sup = mysqli_fetch_array($result);
 ?>
-	<center><form method="post" action="gg.php">
-		<input type="text" name="id" value="<?php echo $sup['sup_id']; ?>" disabled></input><br>
-		<input type="text" name="date" value="<?php echo $str; ?>" disabled></input><br>
-		<input type="text" name="sub_accname" value="<?php echo $sup['sub_accname']; ?>" disabled></input><br>
-		<input type="text" name="sup_accnum" value="<?php echo $sup['sup_accnum']; ?>" disabled></input><br>
-		<input type="text" name="sum" value="<?php echo $sum; ?>" disabled></input><br>
-	<button type="submit">แจ้งรับเงิน</button>
-	</form></center>
-    </article>
+
+	<form method="post" enctype = "multipart/form-data" action="gg.php">
+	<center>
+		<input type="hidden" name="sup_id" value="<?php echo $sup_id;?>">
+		<input type="hidden" name="date" value="<?php echo $str;?>"></input><br>
+		<input type="hidden" name="sub_accname" value="<?php echo $sup['sub_accname'];?>"></input><br>
+		<input type="hidden" name="sup_accnum" value="<?php echo $sup['sup_accnum'];?>"></input><br>
+		<input type="hidden" name="sum" value="<?php echo $sum*0.95;?>"></input><br>
+		<button type="submit" class="btn btn-primary" >ยืนยัน</button> 
+		
+		</center>
+		
+	</form>
+  </article>  
 </body>
 </html>

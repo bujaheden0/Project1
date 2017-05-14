@@ -37,7 +37,7 @@ function confirmDelete(){
 </div><!--Header-->
 <div class="contianer">
 
-?>
+
 <center><FONT Size="30">สมัครสมาชิก</FONT></center>
 </h3>
 	<form method="post" enctype = "multipart/form-data" action="instrument_add.php">

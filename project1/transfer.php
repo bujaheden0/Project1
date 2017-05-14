@@ -154,6 +154,21 @@ function ajaxSend(dataJSON) {
 <?php
 include "dblink.php";
 include "lib/pagination.php";
+$sum1 = 0;
+$sql1 = "SELECT * FROM `transfer` WHERE sup_id = '$sup_id' AND tran_status = 'yes'";
+$result1 = page_query($link, $sql1, 20);
+$first = page_start_row();
+$row = $first;
+$index = 0;
+while($sup1 = mysqli_fetch_array($result1)) {
+	
+ 	//echo $sup1['tran_amount']; 
+	$row++;
+	$sum1 += $sup1['tran_amount'];
+}
+?>
+<center><h1>ยอดรายได้ทั้งหมด = <?php echo "$sum1"?></h1></center>
+<?php
 
 $sql = "SELECT * FROM `transfer` WHERE sup_id = '$sup_id'";
 $result = page_query($link, $sql, 20);
@@ -164,9 +179,10 @@ if($total == 0) {
 	$first = 0;
 }
 ?>
+
 <table>
 <caption>
-	<?php 	echo "รายการโอนเงิน  $first - $last จากทั้งหมด $total"; ?>
+	<?php 	echo "รายการโอนเงิน  $first - $last จากทั้งหมด $total  "; ?>
 </caption>
 <colgroup><col id="c1"><col id="c2"><col id="c3"><col id="c4"><col id="c5"><col id="c6"></colgroup>
 <tr><th>ลำดับ</th><th>วันที่พักบัญชี</th><th>บัญชีผู้รับ</th><th>ชื่อ</th><th>จำนวนเงิน</th><th>สถานะการโอน</th></tr>
