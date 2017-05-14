@@ -44,6 +44,9 @@ $sup_id = $_SESSION['sup_id'];
 	td:nth-child(7) {
 		width: 100px;
 	}
+	td:nth-child(8) {
+		width: 100px;
+	}
 	table th {
 		background: green;
 		color: yellow;
@@ -171,7 +174,7 @@ include "lib/pagination.php";
 /*SELECT payments.*, customers.email
  			FROM payments LEFT JOIN customers ON payments.cust_id = customers.cust_id 
  			ORDER BY pay_id DESC*/
-$sql = "SELECT order_details.*,orders.*,customers.*,products.*
+$sql = "SELECT order_details.*,orders.*,customers.*,products.pro_name,products.price
 FROM orders LEFT JOIN order_details ON order_details.order_id = orders.order_id RIGHT JOIN customers ON orders.cust_id = customers.cust_id RIGHT JOIN products on order_details.pro_id = products.pro_id
 WHERE order_details.pro_id IN (SELECT products.pro_id FROM products WHERE sup_id = '$sup_id')
 ORDER BY item_id";
@@ -187,7 +190,7 @@ if($total == 0) {
 <caption>
 	<?php 	echo "รายการแจ้งโอนเงินลำดับที่  $first - $last จาก $total"; ?>
 </caption>
-<tr><th>รหัสการสั่งซื้อ</th><th>ชื่อสินค้า</th><th>ราคา</th><th>เวลา</th><th>ชื่อผู้ซื้อ</th><th>ที่อยู่ผู้ซื้อ</th><th>คำสั่ง</th></tr>
+<tr><th>รหัสการสั่งซื้อ</th><th>ชื่อสินค้า</th><th>ราคา</th><th>จำนวน</th><th>เวลา</th><th>ชื่อผู้ซื้อ</th><th>ที่อยู่ผู้ซื้อ</th><th>คำสั่ง</th></tr>
 <?php
 while($pay = mysqli_fetch_array($result)) {
 	$class = 'enable';
@@ -200,7 +203,8 @@ while($pay = mysqli_fetch_array($result)) {
 <tr>
 	<td><?php echo $pay['order_id'];; ?></td>
     <td><?php echo $pay['pro_name']; ?></td>
-    <td><?php echo $pay['price']; ?></td>
+    <td><?php echo $pay['price']*$pay['quantity']; ?></td>
+    <td><?php echo $pay['quantity']; ?></td>
     <td><?php echo $pay['order_date']; ?></td>
     <td><?php echo $pay['name']; ?></td>
     <td><?php echo $pay['address']; ?></td>
