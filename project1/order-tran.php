@@ -92,7 +92,7 @@ $sup_id = $_SESSION['sup_id'];
 <script src="js/jquery-ui.min.js"> </script>
 <script src="js/jquery.blockUI.js"> </script>
 <script>
-$(function() {
+/*$(function() {
 	$('#add-sup').click(function() {  //คลิกปุ่ม "เพิ่มผู้จัดส่งสินค้า"
 		$('#form-sup')[0].reset();
 		$('#action').val('add');
@@ -106,8 +106,8 @@ $(function() {
 	});
 	
 	$('button.edit').click(function() {
-		var orderID = $(this).attr('data-id');
-		var url = "transfer-detail.php?tran_id=" + orderID ;
+		var order_tranID = $(this).attr('data-id');
+		var url = "order-tran_submit1.php?order_tran_id=" + order_tranID ;
 		location.href = url;
 	});	
 	
@@ -143,7 +143,7 @@ function ajaxSend(dataJSON) {
 			location.reload();
 		}
 	});
-}
+}*/
  
 
 </script>
@@ -154,7 +154,7 @@ function ajaxSend(dataJSON) {
 <?php
 include "dblink.php";
 include "lib/pagination.php";
-
+$sum = 0;
 $sql = "SELECT order_tran.*,orders.*,customers.*,products.pro_name
 FROM order_tran
 LEFT JOIN orders ON order_tran.order_id = orders.order_id 
@@ -192,75 +192,53 @@ while($sup = mysqli_fetch_array($result)) {
     <td><?php echo $sup['price']; ?></td>
     <td><?php echo $sup['quantity']; ?></td>
     <td><?php echo $sup['name']; ?></td>
+
     
 </tr>
 <?php
 	$row++;
-}
-?>
-</table>
-<?php
-if(page_total() > 1) { 	 //ให้แสดงหมายเลขเพจเฉพาะเมื่อมีมากกว่า 1 เพจ
-	echo '<p id="pagenum">';
-	page_echo_pagenums();
-	echo '</p>';
-}
-?>
-
-<div id="dialog">
-<form id="form-sup">
-<input type="hidden" name="action" id="action" value="">
-รายการที่ :<br>
-<input type="text" name="sup_id" id="sup-id" value="" disabled=""><br>
-บัญชี :<br>
-<input type="text" name="address" id="address" disabled=""><br>
-จำนวนเงินที่ต้องชำระ :<br>
-<input type="text" name="contact-name" id="contact-name"  disabled=""></textarea><br><br>
-
-
-<?php
-$cust_id = $_GET['orderID'];
-$sql2 = "SELECT * FROM order_tran where tran_id = '$cust_id' ";
-$result2 = page_query($link, $sql2, 20);
-$first2 = page_start_row();
-$last2 = page_stop_row();
-$total2 = page_total_rows();
-if($total2 == 0) {
-	$first2 = 0;
-}
-?>
-<table>
-<caption>
-	<?php 	echo "รายการโอนเงิน  $first2 - $last2 จากทั้งหมด $total2"; ?>
-</caption>
-<colgroup><col id="c1"><col id="c2"><col id="c3"></colgroup>
-<tr><th>ลำดับ</th><th>ชื่อสินค้า</th><th>ราคา</th></tr>
-<?php
-$row2 = $first2;
-while($sup2 = mysqli_fetch_array($result2)) {
-?>
-<tr>
-	<td><?php echo $row2; ?></td>
-    <td><?php echo $sup2['ort_name']; ?></td>
-    <td><?php echo $sup2['ort_price']; ?></td>
-</tr>
-<?php
-	$row2++;
+	$sum += $sup['price'];
 }
 ?>
 </table>
 
 
-<form  method="post" enctype="multipart/form-data">
-	<input type="file" name="file" id="file"><br>
-	<input type="submit" name="submit" value="Upload Image">
-</form>
-<br>
 
-<button type="button" id="send">ส่งข้อมูล</button>
-</form>
-</div>
+<?php
+include "dblink.php";
+//include "lib/pagination.php";
 
-</article>
+$sql = "SELECT order_tran.*,orders.*,customers.*,products.pro_name, suppliers.sub_accname,suppliers.sup_accnum,suppliers.sup_id
+FROM order_tran
+LEFT JOIN orders ON order_tran.order_id = orders.order_id 
+LEFT JOIN order_details ON order_details.order_id = orders.order_id 
+RIGHT JOIN customers ON customers.cust_id = orders.cust_id
+RIGHT JOIN products ON products.pro_id = order_details.pro_id
+RIGHT JOIN suppliers ON suppliers.sup_id = products.sup_id
+WHERE order_details.pro_id IN (SELECT products.pro_id FROM products WHERE sup_id = '$sup_id') 
+AND tran_id = 0";
+$result = page_query($link, $sql, 20);
+$first = page_start_row();
+$last = page_stop_row();
+$total = page_total_rows();
+if($total == 0) {
+	$first = 0;
+}
+$row = $first;
+$index = 0;
+$th=mktime(gmdate("H")+7,gmdate("i"),gmdate("m"),gmdate("d"),gmdate("Y"));
+$format="d/m/y H:i a";
+$str=date($format,$th);
+$sup = mysqli_fetch_array($result);
+?>
+	<center><form method="post" action="gg.php">
+		<input type="text" name="id" value="<?php echo $sup['sup_id']; ?>" disabled></input><br>
+		<input type="text" name="date" value="<?php echo $str; ?>" disabled></input><br>
+		<input type="text" name="sub_accname" value="<?php echo $sup['sub_accname']; ?>" disabled></input><br>
+		<input type="text" name="sup_accnum" value="<?php echo $sup['sup_accnum']; ?>" disabled></input><br>
+		<input type="text" name="sum" value="<?php echo $sum; ?>" disabled></input><br>
+	<button type="submit">แจ้งรับเงิน</button>
+	</form></center>
+    </article>
 </body>
 </html>
