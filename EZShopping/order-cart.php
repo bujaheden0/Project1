@@ -220,6 +220,7 @@ else {
 $grand_total = 0;
 while($cart = mysqli_fetch_array($result)) {
 	//แทนที่ ","ด้วย <br> เพื่อแยกแต่ละคุณลักษณะไว้คนละบรรทัด
+	
 	$attr = preg_replace("/,/", "<br>", $cart['attribute']);
 	$price = number_format($cart['price']);
 	$sub_total = number_format($cart['quantity'] * $cart['price']);

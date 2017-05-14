@@ -114,7 +114,7 @@ if(isset($_GET['catid']) && !empty($_GET['catid'])) {
 	$field = $_GET['catname'];
 }
 $sql .= "ORDER BY pro_id DESC";
-$result = page_query($link, $sql, 10);
+$result = page_query($link, $sql, 12);
 $first = page_start_row();
 $last = page_stop_row();
 $total = page_total_rows();
@@ -147,7 +147,11 @@ while($pro = mysqli_fetch_array($result)) {
     </div>
 
     <?php
-    	echo "<span class=\"status\">สถานะ :" . $status ."</span><br>";
+    	if($quan_cur == 0){
+    	echo "<font color=\"red\"><span class=\"status\">สถานะ :" . $status ."</span></font><br>";
+   	 	}else{
+   	 		echo "<font color=\"green\"><span class=\"status\">สถานะ :" . $status ."</span></font><br>";
+   	 	}
 		echo "<a href=# class=\"pro-name\" data-id=\"$id\">". $pro['pro_name'] . "</a><br>";
 		
 		?>

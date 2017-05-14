@@ -26,10 +26,11 @@
 	caption {
 		text-align: left;
 		padding-bottom: 3px !important;
+		color: black;
 	}
 	td:nth-child(1) {
 		width: 230px;
-		text-align: left !important;
+		
 	}
 	td:nth-child(2) {
 		width: 70px;
@@ -317,6 +318,7 @@ if(isset($_SESSION['user'])){
 						$id = $order['pro_id'];
 						$img_delivery = "images/no.png";
 						$img_recieve = "images/no.png";
+						$img_rating = "images/no.png";
 						$class = 'enable';
 						if($order['delivery'] == 'yes'){
 							$img_delivery = "images/yes.png";
@@ -325,6 +327,9 @@ if(isset($_SESSION['user'])){
 							$class = 'disable';
 							$img_recieve = "images/yes.png";
 							
+						}
+						if($order['rating'] == 'yes'){
+							$img_rating = "images/yes.png";
 						}
 				?>
 				<tr>
@@ -338,8 +343,13 @@ if(isset($_SESSION['user'])){
    					<?php
    					if($data['paid'] == "yes" && $order['delivery'] == "yes"){
    						?>
+   						<?php 
+   						if($order['recieve'] == "no"){
+   							?>
    						<button class="<?php echo $class; ?> btn btn-primary" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>">ได้รับแล้ว</button></td>
-   						
+   						<?php
+   						}
+   						?>
    					<?php
    				    }
    					?>
@@ -347,7 +357,17 @@ if(isset($_SESSION['user'])){
    						<?php
    						if($order['recieve'] == "yes"){
    						?>
-   						<span class="star-rate">
+   						<?php 
+   						if($order['rating'] == "yes"){
+   							?>
+   						<img src="<?php echo $img_rating; ?>">
+   						<?php
+   						}
+   						?>
+        			<?php
+        			if($order['rating'] == "no"){
+        			?>
+        				<span class="star-rate">
         			
         			<input type="radio" name="star_<?php echo $id; ?>" value="1"  checked>1
         			<input type="radio" name="star_<?php echo $id; ?>" value="2">2
@@ -355,7 +375,11 @@ if(isset($_SESSION['user'])){
         			<input type="radio" name="star_<?php echo $id; ?>" value="4">4
         			<input type="radio" name="star_<?php echo $id; ?>" value="5">5
         			<button class="bt-rate" type="button" data-id="<?php echo $id; ?>" data-order="<?php echo $order['order_id']; ?>"<?php if($order['rating'] == "yes") {echo "disabled";}?>>Rate</button>
-      </span>
+        			<?php
+        			}
+     				?>
+      </span>		
+      				
    						<?php
    						}
    						?>
