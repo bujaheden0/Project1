@@ -1,9 +1,17 @@
+<?php 
+session_start();
+	if($_SESSION['sup_id'] == "")
+	{
+		echo "Please Login!";
+		exit();
+	}
+
+$sup_id = $_SESSION['sup_id'];
+ ?>
+
 <?php
-sleep(1);
-//include "check-login.php";
-if(!$_POST) {
-	exit;
-}
+
+
 include "dblink.php";
 
 if ($_POST) {
@@ -15,7 +23,7 @@ if ($_POST) {
 	$cat = $_POST['category'];
 	$sup = $_POST['supplier'];
 	$sql = "INSERT INTO products (cat_id,sup_id,pro_name,detail,price,quantity,quantity_current)
-	VALUES('$cat', '$sup', '$name', '$detail', '$price', '$quantity', '$quantity_cur')";
+	VALUES('$cat', '$sup_id', '$name', '$detail', '$price', '$quantity', '$quantity_cur')";
 	mysqli_query($link, $sql);
 	$pro_id = mysqli_insert_id($link);
 	if(is_uploaded_file($_FILES['file']['tmp_name'])){

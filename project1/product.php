@@ -401,7 +401,7 @@ while($pro = mysqli_fetch_array($result)) {
 	}
 	?>
 </select>
-<select name="supplier" id="supplier">
+<!--<select name="supplier" id="supplier">
 	<option>ผู้จัดส่งสินค้า (Supplier)</option>
     <?php 
 	mysqli_data_seek($r_sup, 0);
@@ -409,7 +409,7 @@ while($pro = mysqli_fetch_array($result)) {
 		echo "<option value=\"{$sup['sup_id']}\">- {$sup['sup_name']}</option>";
 	}
 	?>
-</select>
+</select>-->
 <br><br>
 <!--<span id="propname">คุณลักษณะสินค้า (เช่น สี)</span>
 <span id="propval">ค่าของคุณลักษณะ (คั่นด้วย ","  เช่น ฟ้า, ขาว, แดง, ดำ)</span><br>
