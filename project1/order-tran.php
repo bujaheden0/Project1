@@ -239,8 +239,8 @@ if($total == 0) {
 }
 $row = $first;
 $index = 0;
-$th=mktime(gmdate("H")+7,gmdate("i"),gmdate("m"),gmdate("d"),gmdate("Y"));
-$format="d/m/y H:i a";
+$th=mktime(gmdate("H")+7,gmdate("i"),gmdate("s"),gmdate("y"),gmdate("d"),gmdate("m")+11);
+$format="Y-m-d H:i:s";
 $str=date($format,$th);
 $sup = mysqli_fetch_array($result);
 ?>
